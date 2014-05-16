@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01E66601926342000C62543 /* Runner.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E665F1926342000C62543 /* Runner.m */; };
+		B01E66631926342D00C62543 /* Barrier.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66621926342D00C62543 /* Barrier.m */; };
+		B01E66661926343800C62543 /* Hole.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66651926343800C62543 /* Hole.m */; };
+		B01E666A192643E700C62543 /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E6669192643E700C62543 /* ContactManager.m */; };
+		B01E666F1926467A00C62543 /* ParallaxBG.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E666E1926467A00C62543 /* ParallaxBG.m */; };
 		B0354A101906E0A600E5C730 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A0F1906E0A600E5C730 /* GameViewController.m */; };
 		B0354A131906E13000E5C730 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A121906E13000E5C730 /* GameScene.m */; };
 		B0735E091906DCC60035D1D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0735E081906DCC60035D1D7 /* Foundation.framework */; };
@@ -41,6 +46,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B01E665B192633B800C62543 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		B01E665E1926342000C62543 /* Runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runner.h; sourceTree = "<group>"; };
+		B01E665F1926342000C62543 /* Runner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Runner.m; sourceTree = "<group>"; };
+		B01E66611926342D00C62543 /* Barrier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Barrier.h; sourceTree = "<group>"; };
+		B01E66621926342D00C62543 /* Barrier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Barrier.m; sourceTree = "<group>"; };
+		B01E66641926343800C62543 /* Hole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hole.h; sourceTree = "<group>"; };
+		B01E66651926343800C62543 /* Hole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hole.m; sourceTree = "<group>"; };
+		B01E6668192643E700C62543 /* ContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactManager.h; sourceTree = "<group>"; };
+		B01E6669192643E700C62543 /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
+		B01E666C1926447400C62543 /* ContactManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactManagerDelegate.h; sourceTree = "<group>"; };
+		B01E666D1926467A00C62543 /* ParallaxBG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxBG.h; sourceTree = "<group>"; };
+		B01E666E1926467A00C62543 /* ParallaxBG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxBG.m; sourceTree = "<group>"; };
 		B0354A0E1906E0A600E5C730 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		B0354A0F1906E0A600E5C730 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		B0354A111906E13000E5C730 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -99,6 +116,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B01E665A192633A600C62543 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B01E665B192633B800C62543 /* Constants.h */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B01E6667192643C500C62543 /* ContactManagement */ = {
+			isa = PBXGroup;
+			children = (
+				B01E6668192643E700C62543 /* ContactManager.h */,
+				B01E6669192643E700C62543 /* ContactManager.m */,
+			);
+			name = ContactManagement;
+			sourceTree = "<group>";
+		};
+		B01E666B192643F400C62543 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B01E666C1926447400C62543 /* ContactManagerDelegate.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		B0354A0C1906E04100E5C730 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +197,9 @@
 		B0735E101906DCC60035D1D7 /* twinrunners */ = {
 			isa = PBXGroup;
 			children = (
+				B01E666B192643F400C62543 /* Protocols */,
+				B01E6667192643C500C62543 /* ContactManagement */,
+				B01E665A192633A600C62543 /* Resources */,
 				B0CEDC801907B669006537C2 /* GameObjects */,
 				B0CEDC791907B4A0006537C2 /* DBAccessLayer */,
 				B0354A0D1906E04800E5C730 /* Scenes */,
@@ -211,8 +256,16 @@
 		B0CEDC801907B669006537C2 /* GameObjects */ = {
 			isa = PBXGroup;
 			children = (
+				B01E666D1926467A00C62543 /* ParallaxBG.h */,
+				B01E666E1926467A00C62543 /* ParallaxBG.m */,
 				B0CEDC811907B681006537C2 /* GameObject.h */,
 				B0CEDC821907B681006537C2 /* GameObject.m */,
+				B01E665E1926342000C62543 /* Runner.h */,
+				B01E665F1926342000C62543 /* Runner.m */,
+				B01E66611926342D00C62543 /* Barrier.h */,
+				B01E66621926342D00C62543 /* Barrier.m */,
+				B01E66641926343800C62543 /* Hole.h */,
+				B01E66651926343800C62543 /* Hole.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -315,14 +368,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0354A101906E0A600E5C730 /* GameViewController.m in Sources */,
+				B01E66661926343800C62543 /* Hole.m in Sources */,
 				B0CEDC831907B681006537C2 /* GameObject.m in Sources */,
 				B0735E241906DCC60035D1D7 /* MainScene.m in Sources */,
 				B0CEDC7C1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld in Sources */,
 				B0735E211906DCC60035D1D7 /* MainViewController.m in Sources */,
 				B0735E1B1906DCC60035D1D7 /* AppDelegate.m in Sources */,
+				B01E666A192643E700C62543 /* ContactManager.m in Sources */,
+				B01E66631926342D00C62543 /* Barrier.m in Sources */,
 				B0354A131906E13000E5C730 /* GameScene.m in Sources */,
 				B0735E171906DCC60035D1D7 /* main.m in Sources */,
+				B01E666F1926467A00C62543 /* ParallaxBG.m in Sources */,
 				B0CEDC7F1907B504006537C2 /* DBAccessLayer.m in Sources */,
+				B01E66601926342000C62543 /* Runner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

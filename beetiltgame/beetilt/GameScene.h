@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "ContactManager.h"
 
-@interface GameScene : SKScene
+@interface GameScene : SKScene<ContactManagerDelegate>
+
+-(void)initEnvironment;
 
 @end

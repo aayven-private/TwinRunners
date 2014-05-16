@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "Constants.h"
 
 @interface GameObject : SKSpriteNode
 
