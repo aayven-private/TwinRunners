@@ -17,10 +17,11 @@
         self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:size.width / 3.0f];
         self.physicsBody.categoryBitMask = kObjectCategoryHole;
         self.physicsBody.collisionBitMask = 0;
-        self.physicsBody.contactTestBitMask = kObjectCategoryRunner;
+        self.physicsBody.contactTestBitMask = kObjectCategoryRunner | kObjectCategoryFrame;
         self.physicsBody.usesPreciseCollisionDetection = YES;
         self.physicsBody.dynamic = NO;
         self.physicsBody.affectedByGravity = NO;
+        self.isOnScreen = NO;
     }
     return self;
 }

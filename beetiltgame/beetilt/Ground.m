@@ -1,28 +1,27 @@
 //
-//  Runner.m
+//  Ground.m
 //  twinrunners
 //
 //  Created by Ivan Borsa on 16/05/14.
 //  Copyright (c) 2014 Weloux. All rights reserved.
 //
 
-#import "Runner.h"
+#import "Ground.h"
 
-@implementation Runner
+@implementation Ground
 
 -(id)initWithTexture:(SKTexture *)texture
 {
     if (self = [super initWithTexture:texture]) {
-        self.type = kObjectTypeRunner;
+        self.type = kObjectTypeGround;
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:texture.size];
-        self.physicsBody.categoryBitMask = kObjectCategoryRunner;
+        self.physicsBody.categoryBitMask = kObjectCategoryGround;
         self.physicsBody.collisionBitMask = 0;
-        self.physicsBody.contactTestBitMask = kObjectCategoryHole | kObjectCategoryBarrier;
+        self.physicsBody.contactTestBitMask = kObjectCategoryFrame;
         self.physicsBody.usesPreciseCollisionDetection = YES;
-        self.physicsBody.dynamic = NO;
+        self.physicsBody.dynamic = YES;
         self.physicsBody.affectedByGravity = NO;
-        self.isJumping = NO;
-        self.isOnScreen = YES;
+        self.isOnScreen = NO;
     }
     return self;
 }

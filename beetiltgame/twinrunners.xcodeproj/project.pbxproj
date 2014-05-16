@@ -12,6 +12,8 @@
 		B01E66661926343800C62543 /* Hole.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66651926343800C62543 /* Hole.m */; };
 		B01E666A192643E700C62543 /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E6669192643E700C62543 /* ContactManager.m */; };
 		B01E666F1926467A00C62543 /* ParallaxBG.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E666E1926467A00C62543 /* ParallaxBG.m */; };
+		B01E66721926508D00C62543 /* Ground.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66711926508D00C62543 /* Ground.m */; };
+		B01E6674192652A700C62543 /* ground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01E6673192652A700C62543 /* ground@2x.png */; };
 		B0354A101906E0A600E5C730 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A0F1906E0A600E5C730 /* GameViewController.m */; };
 		B0354A131906E13000E5C730 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A121906E13000E5C730 /* GameScene.m */; };
 		B0735E091906DCC60035D1D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0735E081906DCC60035D1D7 /* Foundation.framework */; };
@@ -58,6 +60,9 @@
 		B01E666C1926447400C62543 /* ContactManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactManagerDelegate.h; sourceTree = "<group>"; };
 		B01E666D1926467A00C62543 /* ParallaxBG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxBG.h; sourceTree = "<group>"; };
 		B01E666E1926467A00C62543 /* ParallaxBG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxBG.m; sourceTree = "<group>"; };
+		B01E66701926508D00C62543 /* Ground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ground.h; sourceTree = "<group>"; };
+		B01E66711926508D00C62543 /* Ground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ground.m; sourceTree = "<group>"; };
+		B01E6673192652A700C62543 /* ground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ground@2x.png"; sourceTree = "<group>"; };
 		B0354A0E1906E0A600E5C730 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		B0354A0F1906E0A600E5C730 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		B0354A111906E13000E5C730 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -119,6 +124,7 @@
 		B01E665A192633A600C62543 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B01E6673192652A700C62543 /* ground@2x.png */,
 				B01E665B192633B800C62543 /* Constants.h */,
 			);
 			name = Resources;
@@ -266,6 +272,8 @@
 				B01E66621926342D00C62543 /* Barrier.m */,
 				B01E66641926343800C62543 /* Hole.h */,
 				B01E66651926343800C62543 /* Hole.m */,
+				B01E66701926508D00C62543 /* Ground.h */,
+				B01E66711926508D00C62543 /* Ground.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -346,6 +354,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01E6674192652A700C62543 /* ground@2x.png in Resources */,
 				B0735E151906DCC60035D1D7 /* InfoPlist.strings in Resources */,
 				B0735E281906DCC60035D1D7 /* Images.xcassets in Resources */,
 				B0735E1E1906DCC60035D1D7 /* Main.storyboard in Resources */,
@@ -373,6 +382,7 @@
 				B0735E241906DCC60035D1D7 /* MainScene.m in Sources */,
 				B0CEDC7C1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld in Sources */,
 				B0735E211906DCC60035D1D7 /* MainViewController.m in Sources */,
+				B01E66721926508D00C62543 /* Ground.m in Sources */,
 				B0735E1B1906DCC60035D1D7 /* AppDelegate.m in Sources */,
 				B01E666A192643E700C62543 /* ContactManager.m in Sources */,
 				B01E66631926342D00C62543 /* Barrier.m in Sources */,

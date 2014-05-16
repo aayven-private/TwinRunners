@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GameObject.h"
 
 @protocol ContactManagerDelegate <NSObject>
+
+-(void)gameObjectEnteredScene:(GameObject *)object;
+-(void)gameObjectLeftScene:(GameObject *)object;
 
 @end

@@ -7,6 +7,10 @@
 //
 
 #import "ContactManager.h"
+#import "Barrier.h"
+#import "Hole.h"
+#import "Ground.h"
+#import "Runner.h"
 
 @interface ContactManager()
 
@@ -26,7 +30,23 @@
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
-    
+    if (contact.bodyA.categoryBitMask == kObjectCategoryFrame) {
+        if (contact.bodyB.categoryBitMask == kObjectCategoryGround || contact.bodyB.categoryBitMask == kObjectCategoryHole || contact.bodyB.categoryBitMask == kObjectCategoryBarrier) {
+            GameObject *enteringObject = (GameObject *)contact.bodyB.node;
+            if (!enteringObject.isOnScreen) {
+                //enteringObject.isOnScreen = YES;
+                [_delegate gameObjectEnteredScene:enteringObject];
+            }
+        }
+    } else if (contact.bodyB.categoryBitMask == kObjectCategoryFrame) {
+        if (contact.bodyA.categoryBitMask == kObjectCategoryGround || contact.bodyA.categoryBitMask == kObjectCategoryHole || contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
+            GameObject *enteringObject = (GameObject *)contact.bodyA.node;
+            if (!enteringObject.isOnScreen) {
+                //enteringObject.isOnScreen = YES;
+                [_delegate gameObjectEnteredScene:enteringObject];
+            }
+        }
+    }
 }
 
 -(void)didEndContact:(SKPhysicsContact *)contact

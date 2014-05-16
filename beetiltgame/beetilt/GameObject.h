@@ -13,4 +13,6 @@
 
 @property (nonatomic) NSString *type;
 
+@property (nonatomic) BOOL isOnScreen;
+
 @end
