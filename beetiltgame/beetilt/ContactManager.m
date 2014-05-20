@@ -30,7 +30,7 @@
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
-    if (contact.bodyA.categoryBitMask == kObjectCategoryFrame) {
+    /*if (contact.bodyA.categoryBitMask == kObjectCategoryFrame) {
         if (contact.bodyB.categoryBitMask == kObjectCategoryGround || contact.bodyB.categoryBitMask == kObjectCategoryHole || contact.bodyB.categoryBitMask == kObjectCategoryBarrier) {
             GameObject *enteringObject = (GameObject *)contact.bodyB.node;
             if (!enteringObject.isOnScreen) {
@@ -46,7 +46,7 @@
                 [_delegate gameObjectEnteredScene:enteringObject];
             }
         }
-    }
+    }*/
 }
 
 -(void)didEndContact:(SKPhysicsContact *)contact
