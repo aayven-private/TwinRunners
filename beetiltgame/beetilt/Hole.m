@@ -10,16 +10,16 @@
 
 @implementation Hole
 
--(id)initWithColor:(UIColor *)color size:(CGSize)size
+-(id)initWithTexture:(SKTexture *)texture
 {
-    if (self = [super initWithColor:color size:size]) {
+    if (self = [super initWithTexture:texture]) {
         self.type = kObjectTypeHole;
-        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:size.width / 3.0f];
+        self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:texture.size.width / 3.0f];
         self.physicsBody.categoryBitMask = kObjectCategoryHole;
         self.physicsBody.collisionBitMask = 0;
         self.physicsBody.contactTestBitMask = kObjectCategoryRunner | kObjectCategoryFrame;
         self.physicsBody.usesPreciseCollisionDetection = YES;
-        self.physicsBody.dynamic = NO;
+        self.physicsBody.dynamic = YES;
         self.physicsBody.affectedByGravity = NO;
         self.isOnScreen = NO;
     }

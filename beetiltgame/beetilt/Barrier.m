@@ -19,7 +19,7 @@
         self.physicsBody.collisionBitMask = 0;
         self.physicsBody.contactTestBitMask = kObjectCategoryRunner | kObjectCategoryFrame;
         self.physicsBody.usesPreciseCollisionDetection = YES;
-        self.physicsBody.dynamic = NO;
+        self.physicsBody.dynamic = YES;
         self.physicsBody.affectedByGravity = NO;
         self.isOnScreen = NO;
     }

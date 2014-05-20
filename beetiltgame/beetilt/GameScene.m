@@ -26,13 +26,15 @@
 
 @property (nonatomic) SKTexture *runnerTexture;
 @property (nonatomic) SKTexture *barrierTexture;
-@property (nonatomic) SKTexture *groundTexture;
+@property (nonatomic) SKTexture *holeTexture;
 
 @property (nonatomic) NSTimeInterval spawnInterval;
 @property (nonatomic) NSTimeInterval lastSpawnInterval;
 
 @property (nonatomic) int runner1Position;
 @property (nonatomic) int runner2Position;
+
+@property (nonatomic) BOOL isRunning;
 
 @end
 
@@ -44,7 +46,9 @@
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         self.runnerTexture = [SKTexture textureWithImageNamed:@"square"];
         self.barrierTexture = [SKTexture textureWithImageNamed:@"barrier"];
-        self.spawnInterval = 1.7f;
+        self.holeTexture = [SKTexture textureWithImageNamed:@"hole"];
+        self.isRunning = YES;
+        self.spawnInterval = 1.2f;
     }
     return self;
 }
@@ -117,38 +121,46 @@
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
 {
-    _lastSpawnInterval += timeSinceLast;
-    if (_lastSpawnInterval > _spawnInterval) {
-        _lastSpawnInterval = 0;
-        [self addRandomObstacle];
+    if (_isRunning) {
+        _lastSpawnInterval += timeSinceLast;
+        if (_lastSpawnInterval > _spawnInterval) {
+            _lastSpawnInterval = 0;
+            [self addRandomObstacle];
+        }
     }
 }
 
 -(void)addRandomObstacle
 {
     GameObject *obstacle1, *obstacle2;
-    int obstacleType = [CommonTools getRandomNumberFromInt:0 toInt:2];
+    int obstacleType1 = [CommonTools getRandomNumberFromInt:0 toInt:1];
+    int obstacleType2 = [CommonTools getRandomNumberFromInt:0 toInt:1];
+    
     int obstaclePlace1 = [CommonTools getRandomNumberFromInt:1 toInt:3];
     int obstaclePlace2 = [CommonTools getRandomNumberFromInt:5 toInt:7];
-    switch (obstacleType) {
+    
+    switch (obstacleType1) {
         case 0: {
             obstacle1 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+        } break;
+        case 1: {
+            obstacle1 = [[Hole alloc] initWithTexture:self.holeTexture];
+        } break;
+    }
+    
+    switch (obstacleType2) {
+        case 0: {
             obstacle2 = [[Barrier alloc] initWithTexture:self.barrierTexture];
         } break;
         case 1: {
-            obstacle1 = [[Barrier alloc] initWithTexture:self.barrierTexture];
-            obstacle2 = [[Barrier alloc] initWithTexture:self.barrierTexture];
-        } break;
-        case 2: {
-            obstacle1 = [[Barrier alloc] initWithTexture:self.barrierTexture];
-            obstacle2 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+            obstacle2 = [[Hole alloc] initWithTexture:self.holeTexture];
         } break;
     }
     
     obstacle1.position = CGPointMake(obstaclePlace1 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
     obstacle2.position = CGPointMake(obstaclePlace2 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
     
-    SKAction *moveAction = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:4], [SKAction removeFromParent]]];
+    SKAction *moveAction = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:3], [SKAction removeFromParent]]];
     
     [obstacle1 runAction:moveAction];
     [obstacle2 runAction:moveAction];
@@ -235,6 +247,31 @@
         [_runner2 runAction:[SKAction sequence:@[jumpAction, [SKAction runBlock:^{
             _runner2.isJumping = NO;
         }]]]];
+    }
+}
+
+-(void)runner:(Runner *)runner CollidedWithBarrier:(Barrier *)barrier
+{
+    _isRunning = NO;
+    NSLog(@"Game over - barrier");
+    for (SKSpriteNode *node in self.children) {
+        [node removeAllActions];
+    }
+    
+}
+
+-(void)runner:(Runner *)runner CollidedWithHole:(Hole *)hole
+{
+    if (!runner.isJumping) {
+        _isRunning = NO;
+        NSLog(@"Game over - hole");
+        for (SKSpriteNode *node in self.children) {
+            [node removeAllActions];
+        }
+        SKAction *shrinkAction = [SKAction scaleTo:0.1 duration:.3];
+        SKAction *moveAction = [SKAction moveToY:hole.position.y duration:.3];
+        SKAction *rotation = [SKAction rotateByAngle: M_PI duration:.3];
+        [runner runAction:[SKAction group:@[shrinkAction, moveAction, rotation]]];
     }
 }
 

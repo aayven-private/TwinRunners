@@ -7,8 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GameObject.h"
+#import "Runner.h"
+#import "Barrier.h"
+#import "Hole.h"
 
 @protocol ContactManagerDelegate <NSObject>
+
+-(void)runner:(Runner *)runner CollidedWithBarrier:(Barrier *)barrier;
+-(void)runner:(Runner *)runner CollidedWithHole:(Hole *)hole;
 
 @end

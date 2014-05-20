@@ -17,6 +17,7 @@
 		B01E66B3192B941500C62543 /* square@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01E66B2192B941500C62543 /* square@2x.png */; };
 		B01E66B7192BA16900C62543 /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66B6192BA16900C62543 /* CommonTools.m */; };
 		B01E66B9192BA2D200C62543 /* barrier@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01E66B8192BA2D200C62543 /* barrier@2x.png */; };
+		B01E66BB192BAB4B00C62543 /* hole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01E66BA192BAB4B00C62543 /* hole@2x.png */; };
 		B0354A101906E0A600E5C730 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A0F1906E0A600E5C730 /* GameViewController.m */; };
 		B0354A131906E13000E5C730 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A121906E13000E5C730 /* GameScene.m */; };
 		B0735E091906DCC60035D1D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0735E081906DCC60035D1D7 /* Foundation.framework */; };
@@ -70,6 +71,7 @@
 		B01E66B5192BA16900C62543 /* CommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		B01E66B6192BA16900C62543 /* CommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		B01E66B8192BA2D200C62543 /* barrier@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barrier@2x.png"; sourceTree = "<group>"; };
+		B01E66BA192BAB4B00C62543 /* hole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hole@2x.png"; sourceTree = "<group>"; };
 		B0354A0E1906E0A600E5C730 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		B0354A0F1906E0A600E5C730 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		B0354A111906E13000E5C730 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		B01E665A192633A600C62543 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B01E66BA192BAB4B00C62543 /* hole@2x.png */,
 				B01E66B8192BA2D200C62543 /* barrier@2x.png */,
 				B01E66B2192B941500C62543 /* square@2x.png */,
 				B01E6673192652A700C62543 /* ground@2x.png */,
@@ -373,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01E66BB192BAB4B00C62543 /* hole@2x.png in Resources */,
 				B01E6674192652A700C62543 /* ground@2x.png in Resources */,
 				B0735E151906DCC60035D1D7 /* InfoPlist.strings in Resources */,
 				B01E66B3192B941500C62543 /* square@2x.png in Resources */,
