@@ -11,7 +11,4 @@
 
 @protocol ContactManagerDelegate <NSObject>
 
--(void)gameObjectEnteredScene:(GameObject *)object;
--(void)gameObjectLeftScene:(GameObject *)object;
-
 @end

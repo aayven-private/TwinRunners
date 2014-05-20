@@ -12,6 +12,7 @@
 #import "Hole.h"
 #import "Ground.h"
 #import "ParallaxBG.h"
+#import "CommonTools.h"
 
 @interface GameScene()
 
@@ -42,7 +43,8 @@
         /* Setup your scene here */
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         self.runnerTexture = [SKTexture textureWithImageNamed:@"square"];
-        self.spawnInterval = 0.7f;
+        self.barrierTexture = [SKTexture textureWithImageNamed:@"barrier"];
+        self.spawnInterval = 1.7f;
     }
     return self;
 }
@@ -117,13 +119,42 @@
 {
     _lastSpawnInterval += timeSinceLast;
     if (_lastSpawnInterval > _spawnInterval) {
-        
+        _lastSpawnInterval = 0;
+        [self addRandomObstacle];
     }
 }
 
--(void)didSimulatePhysics
+-(void)addRandomObstacle
 {
-
+    GameObject *obstacle1, *obstacle2;
+    int obstacleType = [CommonTools getRandomNumberFromInt:0 toInt:2];
+    int obstaclePlace1 = [CommonTools getRandomNumberFromInt:1 toInt:3];
+    int obstaclePlace2 = [CommonTools getRandomNumberFromInt:5 toInt:7];
+    switch (obstacleType) {
+        case 0: {
+            obstacle1 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+            obstacle2 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+        } break;
+        case 1: {
+            obstacle1 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+            obstacle2 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+        } break;
+        case 2: {
+            obstacle1 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+            obstacle2 = [[Barrier alloc] initWithTexture:self.barrierTexture];
+        } break;
+    }
+    
+    obstacle1.position = CGPointMake(obstaclePlace1 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
+    obstacle2.position = CGPointMake(obstaclePlace2 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
+    
+    SKAction *moveAction = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:4], [SKAction removeFromParent]]];
+    
+    [obstacle1 runAction:moveAction];
+    [obstacle2 runAction:moveAction];
+    
+    [self addChild:obstacle1];
+    [self addChild:obstacle2];
 }
 
 -(void)moveLeft:(UISwipeGestureRecognizer *)recognizer
@@ -164,11 +195,11 @@
     switch (_runner1Position) {
         case 0: {
             _runner1Position = 1;
-            [_runner1 runAction:[SKAction moveToX:self.size.width / 4.0 duration:.1]];
+            [_runner1 runAction:[SKAction moveToX:self.size.width / 4.0 duration:.05]];
         } break;
         case 1: {
             _runner1Position = 2;
-            [_runner1 runAction:[SKAction moveToX:self.size.width * 3.0 / 8.0 duration:.1]];
+            [_runner1 runAction:[SKAction moveToX:self.size.width * 3.0 / 8.0 duration:.05]];
         } break;
         case 2: {
             
@@ -179,11 +210,11 @@
     switch (_runner2Position) {
         case 0: {
             _runner2Position = 1;
-            [_runner2 runAction:[SKAction moveToX:self.size.width * 3.0 / 4.0 duration:.1]];
+            [_runner2 runAction:[SKAction moveToX:self.size.width * 3.0 / 4.0 duration:.05]];
         } break;
         case 1: {
             _runner2Position = 2;
-            [_runner2 runAction:[SKAction moveToX:self.size.width * 7.0 / 8.0 duration:.1]];
+            [_runner2 runAction:[SKAction moveToX:self.size.width * 7.0 / 8.0 duration:.05]];
         } break;
         case 2: {
             
