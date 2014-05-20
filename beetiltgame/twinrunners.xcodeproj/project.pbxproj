@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00DA138192BC6B7002D4546 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B00DA137192BC6B7002D4546 /* GameOverScene.m */; };
 		B01E66601926342000C62543 /* Runner.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E665F1926342000C62543 /* Runner.m */; };
 		B01E66631926342D00C62543 /* Barrier.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66621926342D00C62543 /* Barrier.m */; };
 		B01E66661926343800C62543 /* Hole.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66651926343800C62543 /* Hole.m */; };
@@ -52,6 +53,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B00DA135192BC46A002D4546 /* GameSceneHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSceneHandlerDelegate.h; sourceTree = "<group>"; };
+		B00DA136192BC6B7002D4546 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		B00DA137192BC6B7002D4546 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		B01E665B192633B800C62543 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B01E665E1926342000C62543 /* Runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runner.h; sourceTree = "<group>"; };
 		B01E665F1926342000C62543 /* Runner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Runner.m; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				B01E666C1926447400C62543 /* ContactManagerDelegate.h */,
+				B00DA135192BC46A002D4546 /* GameSceneHandlerDelegate.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -186,6 +191,8 @@
 				B0735E231906DCC60035D1D7 /* MainScene.m */,
 				B0354A111906E13000E5C730 /* GameScene.h */,
 				B0354A121906E13000E5C730 /* GameScene.m */,
+				B00DA136192BC6B7002D4546 /* GameOverScene.h */,
+				B00DA137192BC6B7002D4546 /* GameOverScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -347,6 +354,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Weloux;
 				TargetAttributes = {
+					B0735E041906DCC60035D1D7 = {
+						DevelopmentTeam = Y262LAFNWV;
+					};
 					B0735E2C1906DCC60035D1D7 = {
 						TestTargetID = B0735E041906DCC60035D1D7;
 					};
@@ -407,6 +417,7 @@
 				B0CEDC831907B681006537C2 /* GameObject.m in Sources */,
 				B0735E241906DCC60035D1D7 /* MainScene.m in Sources */,
 				B0CEDC7C1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld in Sources */,
+				B00DA138192BC6B7002D4546 /* GameOverScene.m in Sources */,
 				B0735E211906DCC60035D1D7 /* MainViewController.m in Sources */,
 				B01E66721926508D00C62543 /* Ground.m in Sources */,
 				B0735E1B1906DCC60035D1D7 /* AppDelegate.m in Sources */,
@@ -541,10 +552,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "beetilt/twinrunners-Prefix.pch";
 				INFOPLIST_FILE = "beetilt/twinrunners-Info.plist";
 				PRODUCT_NAME = twinrunners;
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -555,10 +569,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "beetilt/twinrunners-Prefix.pch";
 				INFOPLIST_FILE = "beetilt/twinrunners-Info.plist";
 				PRODUCT_NAME = twinrunners;
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};

@@ -9,6 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "GameViewController.h"
 #import "GameScene.h"
+#import "GameOverScene.h"
 
 @interface GameViewController ()
 
@@ -63,10 +64,42 @@
         // Create and configure the scene.
         _gameScene = [GameScene sceneWithSize:skView.bounds.size];
         _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+        _gameScene.delegate = self;
         
         // Present the scene.
         [skView presentScene:_gameScene];
     }
+}
+
+-(void)gameOverWithScore:(int)score
+{
+    SKView * skView = (SKView *)self.view;
+    GameOverScene *gos = [[GameOverScene alloc] initWithSize:self.view.frame.size andScore:0];
+    gos.delegate = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [skView presentScene:gos transition:[SKTransition flipHorizontalWithDuration:.5]];
+    });
+
+    //[self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)quit
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)retry
+{
+    SKView * skView = (SKView *)self.view;
+    
+    // Create and configure the scene.
+    _gameScene = [GameScene sceneWithSize:skView.bounds.size];
+    _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+    _gameScene.delegate = self;
+    
+    // Present the scene.
+    [skView presentScene:_gameScene transition:[SKTransition flipHorizontalWithDuration:.5]];
+    [_gameScene initEnvironment];
 }
 
 /*

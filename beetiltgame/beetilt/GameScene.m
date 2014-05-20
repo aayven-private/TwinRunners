@@ -18,6 +18,9 @@
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 
+@property (nonatomic) SKSpriteNode *plane1;
+@property (nonatomic) SKSpriteNode *plane2;
+
 @property (nonatomic) Runner *runner1;
 @property (nonatomic) Runner *runner2;
 
@@ -99,12 +102,21 @@
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.scaleMode = SKSceneScaleModeAspectFill;
     
+    self.plane1 = [[SKSpriteNode alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width / 2.0, self.size.height)];
+    self.plane1.position = CGPointMake(0, 0);
+    
+    self.plane2 = [[SKSpriteNode alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width / 2.0, self.size.height)];
+    self.plane2.position = CGPointMake(self.size.width / 2.0, 0);
+    
+    [self addChild:self.plane1];
+    [self addChild:self.plane2];
+    
     self.runner1 = [[Runner alloc] initWithTexture:self.runnerTexture];
-    self.runner1.position = CGPointMake(self.size.width / 4.0, 80);
-    [self addChild:self.runner1];
+    self.runner1.position = CGPointMake(self.plane1.size.width / 2.0, 80);
+    [self.plane1 addChild:self.runner1];
     self.runner2 = [[Runner alloc] initWithTexture:self.runnerTexture];
-    self.runner2.position = CGPointMake(self.size.width * 3.0 / 4.0, 80);
-    [self addChild:self.runner2];
+    self.runner2.position = CGPointMake(self.plane2.size.width / 2.0, 80);
+    [self.plane2 addChild:self.runner2];
     
     
 }
@@ -137,7 +149,7 @@
     int obstacleType2 = [CommonTools getRandomNumberFromInt:0 toInt:1];
     
     int obstaclePlace1 = [CommonTools getRandomNumberFromInt:1 toInt:3];
-    int obstaclePlace2 = [CommonTools getRandomNumberFromInt:5 toInt:7];
+    int obstaclePlace2 = [CommonTools getRandomNumberFromInt:1 toInt:3];
     
     switch (obstacleType1) {
         case 0: {
@@ -160,84 +172,88 @@
     obstacle1.position = CGPointMake(obstaclePlace1 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
     obstacle2.position = CGPointMake(obstaclePlace2 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
     
-    SKAction *moveAction = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:3], [SKAction removeFromParent]]];
+    SKAction *moveAction = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:2], [SKAction removeFromParent]]];
     
     [obstacle1 runAction:moveAction];
     [obstacle2 runAction:moveAction];
     
-    [self addChild:obstacle1];
-    [self addChild:obstacle2];
+    [self.plane1 addChild:obstacle1];
+    [self.plane2 addChild:obstacle2];
 }
 
 -(void)moveLeft:(UISwipeGestureRecognizer *)recognizer
 {
-    switch (_runner1Position) {
-        case 0: {
-            
-        } break;
-        case 1: {
-            _runner1Position = 0;
-            [_runner1 runAction:[SKAction moveToX:self.size.width / 8.0 duration:.1]];
-        } break;
-        case 2: {
-            _runner1Position = 1;
-            [_runner1 runAction:[SKAction moveToX:self.size.width / 4.0 duration:.1]];
-        } break;
-        default: break;
-    }
-    
-    switch (_runner2Position) {
-        case 0: {
-            
-        } break;
-        case 1: {
-            _runner2Position = 0;
-            [_runner2 runAction:[SKAction moveToX:self.size.width * 5.0 / 8.0 duration:.1]];
-        } break;
-        case 2: {
-            _runner2Position = 1;
-            [_runner2 runAction:[SKAction moveToX:self.size.width * 3.0 / 4.0 duration:.1]];
-        } break;
-        default: break;
+    if (_isRunning) {
+        switch (_runner1Position) {
+            case 0: {
+                
+            } break;
+            case 1: {
+                _runner1Position = 0;
+                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 4.0 duration:.05]];
+            } break;
+            case 2: {
+                _runner1Position = 1;
+                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
+            } break;
+            default: break;
+        }
+        
+        switch (_runner2Position) {
+            case 0: {
+                
+            } break;
+            case 1: {
+                _runner2Position = 0;
+                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 4.0 duration:.05]];
+            } break;
+            case 2: {
+                _runner2Position = 1;
+                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 2.0 duration:.05]];
+            } break;
+            default: break;
+        }
     }
 }
 
 -(void)moveRight:(UISwipeGestureRecognizer *)recognizer
 {
-    switch (_runner1Position) {
-        case 0: {
-            _runner1Position = 1;
-            [_runner1 runAction:[SKAction moveToX:self.size.width / 4.0 duration:.05]];
-        } break;
-        case 1: {
-            _runner1Position = 2;
-            [_runner1 runAction:[SKAction moveToX:self.size.width * 3.0 / 8.0 duration:.05]];
-        } break;
-        case 2: {
-            
-        } break;
-        default: break;
-    }
-    
-    switch (_runner2Position) {
-        case 0: {
-            _runner2Position = 1;
-            [_runner2 runAction:[SKAction moveToX:self.size.width * 3.0 / 4.0 duration:.05]];
-        } break;
-        case 1: {
-            _runner2Position = 2;
-            [_runner2 runAction:[SKAction moveToX:self.size.width * 7.0 / 8.0 duration:.05]];
-        } break;
-        case 2: {
-            
-        } break;
-        default: break;
+    if (_isRunning) {
+        switch (_runner1Position) {
+            case 0: {
+                _runner1Position = 1;
+                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
+            } break;
+            case 1: {
+                _runner1Position = 2;
+                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width * 3.0 / 4.0 duration:.05]];
+            } break;
+            case 2: {
+                
+            } break;
+            default: break;
+        }
+        
+        switch (_runner2Position) {
+            case 0: {
+                _runner2Position = 1;
+                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 2.0 duration:.05]];
+            } break;
+            case 1: {
+                _runner2Position = 2;
+                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width * 3.0 / 4.0 duration:.05]];
+            } break;
+            case 2: {
+                
+            } break;
+            default: break;
+        }
     }
 }
 
 -(void)jump:(UITapGestureRecognizer *)recognizer
 {
-    if (!_runner1.isJumping && !_runner2.isJumping) {
+    if (!_runner1.isJumping && !_runner2.isJumping && _isRunning) {
         _runner1.isJumping = YES;
         _runner2.isJumping = YES;
         SKAction *jumpAction = [SKAction sequence:@[[SKAction scaleTo:1.4 duration:.3], [SKAction scaleTo:1.0 duration:.3]]];
@@ -254,10 +270,20 @@
 {
     _isRunning = NO;
     NSLog(@"Game over - barrier");
-    for (SKSpriteNode *node in self.children) {
+    SKSpriteNode *ownerPlane;
+    if ([runner isEqual:_runner1]) {
+        ownerPlane = _plane1;
+    } else {
+        ownerPlane = _plane2;
+    }
+    for (SKSpriteNode *node in ownerPlane.children) {
         [node removeAllActions];
     }
+    SKAction *showGOSAction = [SKAction sequence:@[[SKAction waitForDuration:1], [SKAction runBlock:^{
+        [_delegate gameOverWithScore:0];
+    }]]];
     
+    [self runAction:showGOSAction];
 }
 
 -(void)runner:(Runner *)runner CollidedWithHole:(Hole *)hole
@@ -265,13 +291,25 @@
     if (!runner.isJumping) {
         _isRunning = NO;
         NSLog(@"Game over - hole");
-        for (SKSpriteNode *node in self.children) {
+        SKSpriteNode *ownerPlane;
+        if ([runner isEqual:_runner1]) {
+            ownerPlane = _plane1;
+        } else {
+            ownerPlane = _plane2;
+        }
+        for (SKSpriteNode *node in ownerPlane.children) {
             [node removeAllActions];
         }
         SKAction *shrinkAction = [SKAction scaleTo:0.1 duration:.3];
         SKAction *moveAction = [SKAction moveToY:hole.position.y duration:.3];
         SKAction *rotation = [SKAction rotateByAngle: M_PI duration:.3];
         [runner runAction:[SKAction group:@[shrinkAction, moveAction, rotation]]];
+        
+        SKAction *showGOSAction = [SKAction sequence:@[[SKAction waitForDuration:1], [SKAction runBlock:^{
+            [_delegate gameOverWithScore:0];
+        }]]];
+        
+        [self runAction:showGOSAction];
     }
 }
 

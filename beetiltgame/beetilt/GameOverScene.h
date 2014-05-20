@@ -1,19 +1,18 @@
 //
-//  GameScene.h
-//  beetilt
+//  GameOverScene.h
+//  twinrunners
 //
-//  Created by Ivan Borsa on 22/04/14.
+//  Created by Ivan Borsa on 20/05/14.
 //  Copyright (c) 2014 Weloux. All rights reserved.
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "ContactManager.h"
 #import "GameSceneHandlerDelegate.h"
 
-@interface GameScene : SKScene<ContactManagerDelegate>
+@interface GameOverScene : SKScene
 
 @property (nonatomic, weak) id<GameSceneHandlerDelegate> delegate;
 
--(void)initEnvironment;
+-(id)initWithSize:(CGSize)size andScore:(int)score;
 
 @end
