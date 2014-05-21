@@ -14,5 +14,6 @@
 @property (nonatomic) NSString *type;
 
 @property (nonatomic) BOOL isOnScreen;
+@property (nonatomic) int lane;
 
 @end

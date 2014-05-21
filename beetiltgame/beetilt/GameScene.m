@@ -34,9 +34,6 @@
 @property (nonatomic) NSTimeInterval spawnInterval;
 @property (nonatomic) NSTimeInterval lastSpawnInterval;
 
-@property (nonatomic) int runner1Position;
-@property (nonatomic) int runner2Position;
-
 @property (nonatomic) BOOL isRunning;
 
 @end
@@ -68,9 +65,6 @@
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jump:)];
     
-    self.runner1Position = 1;
-    self.runner2Position = 1;
-    
     [self.view addGestureRecognizer:swipeLeftGestureRecognizer];
     [self.view addGestureRecognizer:swipeRightGestureRecognizer];
     [self.view addGestureRecognizer:tapRecognizer];
@@ -80,15 +74,6 @@
     parallax.showBgStatus = NO;
     self.parallaxBG = parallax;
     [self addChild:parallax];*/
-    
-    SKShapeNode *divider = [SKShapeNode node];
-    CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, self.size.width / 2.0, self.size.height);
-    CGPathAddLineToPoint(pathToDraw, NULL, self.size.width / 2.0, 0);
-    divider.path = pathToDraw;
-    [divider setStrokeColor:[UIColor blackColor]];
-    [self addChild:divider];
-    CGPathRelease(pathToDraw);
     
     self.contactManager = [[ContactManager alloc] initWithDelegate:self];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
@@ -113,12 +98,45 @@
     
     self.runner1 = [[Runner alloc] initWithTexture:self.runnerTexture];
     self.runner1.position = CGPointMake(self.plane1.size.width / 2.0, 80);
+    
     [self.plane1 addChild:self.runner1];
     self.runner2 = [[Runner alloc] initWithTexture:self.runnerTexture];
     self.runner2.position = CGPointMake(self.plane2.size.width / 2.0, 80);
     [self.plane2 addChild:self.runner2];
     
+    self.runner1.lane = 1;
+    self.runner2.lane = 1;
     
+    for (int i=1; i<3; i++) {
+        SKShapeNode *divider1 = [SKShapeNode node];
+        CGMutablePathRef pathToDraw = CGPathCreateMutable();
+        CGPathMoveToPoint(pathToDraw, NULL, i * self.plane1.size.width / 3.0, self.plane1.size.height);
+        CGPathAddLineToPoint(pathToDraw, NULL, i * self.plane1.size.width / 3.0, 0);
+        divider1.lineWidth = 0.5;
+        divider1.path = pathToDraw;
+        [divider1 setStrokeColor:[UIColor lightGrayColor]];
+        [self.plane1 addChild:divider1];
+        CGPathRelease(pathToDraw);
+        
+        SKShapeNode *divider2 = [SKShapeNode node];
+        pathToDraw = CGPathCreateMutable();
+        CGPathMoveToPoint(pathToDraw, NULL, i * self.plane2.size.width / 3.0, self.plane2.size.height);
+        CGPathAddLineToPoint(pathToDraw, NULL, i * self.plane2.size.width / 3.0, 0);
+        divider2.lineWidth = 0.5;
+        divider2.path = pathToDraw;
+        [divider2 setStrokeColor:[UIColor lightGrayColor]];
+        [self.plane2 addChild:divider2];
+        CGPathRelease(pathToDraw);
+    }
+    
+    SKShapeNode *divider = [SKShapeNode node];
+    CGMutablePathRef pathToDraw = CGPathCreateMutable();
+    CGPathMoveToPoint(pathToDraw, NULL, self.size.width / 2.0, self.size.height);
+    CGPathAddLineToPoint(pathToDraw, NULL, self.size.width / 2.0, 0);
+    divider.path = pathToDraw;
+    [divider setStrokeColor:[UIColor blackColor]];
+    [self addChild:divider];
+    CGPathRelease(pathToDraw);
 }
 
 - (void)update:(NSTimeInterval)currentTime
@@ -148,8 +166,8 @@
     int obstacleType1 = [CommonTools getRandomNumberFromInt:0 toInt:1];
     int obstacleType2 = [CommonTools getRandomNumberFromInt:0 toInt:1];
     
-    int obstaclePlace1 = [CommonTools getRandomNumberFromInt:1 toInt:3];
-    int obstaclePlace2 = [CommonTools getRandomNumberFromInt:1 toInt:3];
+    int obstacleLane1 = [CommonTools getRandomNumberFromInt:0 toInt:2];
+    int obstacleLane2 = [CommonTools getRandomNumberFromInt:0 toInt:2];
     
     switch (obstacleType1) {
         case 0: {
@@ -169,8 +187,11 @@
         } break;
     }
     
-    obstacle1.position = CGPointMake(obstaclePlace1 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
-    obstacle2.position = CGPointMake(obstaclePlace2 * self.size.width / 8.0, self.size.height + obstacle1.size.height / 2.0);
+    obstacle1.position = CGPointMake((obstacleLane1 * 2.0 / 6.0 + 1.0 / 6.0) * self.plane1.size.width, self.plane1.size.height + obstacle1.size.height / 2.0);
+    obstacle2.position = CGPointMake((obstacleLane2 * 2.0 / 6.0 + 1.0 / 6.0) * self.plane2.size.width, self.plane2.size.height + obstacle1.size.height / 2.0);
+    
+    obstacle1.lane = obstacleLane1;
+    obstacle2.lane = obstacleLane2;
     
     SKAction *moveAction = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:2], [SKAction removeFromParent]]];
     
@@ -184,31 +205,31 @@
 -(void)moveLeft:(UISwipeGestureRecognizer *)recognizer
 {
     if (_isRunning) {
-        switch (_runner1Position) {
+        switch (_runner1.lane) {
             case 0: {
                 
             } break;
             case 1: {
-                _runner1Position = 0;
-                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 4.0 duration:.05]];
+                _runner1.lane = 0;
+                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 6.0 duration:.05]];
             } break;
             case 2: {
-                _runner1Position = 1;
+                _runner1.lane = 1;
                 [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
             } break;
             default: break;
         }
         
-        switch (_runner2Position) {
+        switch (_runner2.lane) {
             case 0: {
                 
             } break;
             case 1: {
-                _runner2Position = 0;
-                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 4.0 duration:.05]];
+                _runner2.lane = 0;
+                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 6.0 duration:.05]];
             } break;
             case 2: {
-                _runner2Position = 1;
+                _runner2.lane = 1;
                 [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 2.0 duration:.05]];
             } break;
             default: break;
@@ -219,14 +240,14 @@
 -(void)moveRight:(UISwipeGestureRecognizer *)recognizer
 {
     if (_isRunning) {
-        switch (_runner1Position) {
+        switch (_runner1.lane) {
             case 0: {
-                _runner1Position = 1;
+                _runner1.lane = 1;
                 [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
             } break;
             case 1: {
-                _runner1Position = 2;
-                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width * 3.0 / 4.0 duration:.05]];
+                _runner1.lane = 2;
+                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width * 5.0 / 6.0 duration:.05]];
             } break;
             case 2: {
                 
@@ -234,14 +255,14 @@
             default: break;
         }
         
-        switch (_runner2Position) {
+        switch (_runner2.lane) {
             case 0: {
-                _runner2Position = 1;
+                _runner2.lane = 1;
                 [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 2.0 duration:.05]];
             } break;
             case 1: {
-                _runner2Position = 2;
-                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width * 3.0 / 4.0 duration:.05]];
+                _runner2.lane = 2;
+                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width * 5.0 / 6.0 duration:.05]];
             } break;
             case 2: {
                 
@@ -268,27 +289,29 @@
 
 -(void)runner:(Runner *)runner CollidedWithBarrier:(Barrier *)barrier
 {
-    _isRunning = NO;
-    NSLog(@"Game over - barrier");
-    SKSpriteNode *ownerPlane;
-    if ([runner isEqual:_runner1]) {
-        ownerPlane = _plane1;
-    } else {
-        ownerPlane = _plane2;
+    if (runner.lane == barrier.lane) {
+        _isRunning = NO;
+        NSLog(@"Game over - barrier");
+        SKSpriteNode *ownerPlane;
+        if ([runner isEqual:_runner1]) {
+            ownerPlane = _plane1;
+        } else {
+            ownerPlane = _plane2;
+        }
+        for (SKSpriteNode *node in ownerPlane.children) {
+            [node removeAllActions];
+        }
+        SKAction *showGOSAction = [SKAction sequence:@[[SKAction waitForDuration:1], [SKAction runBlock:^{
+            [_delegate gameOverWithScore:0];
+        }]]];
+        
+        [self runAction:showGOSAction];
     }
-    for (SKSpriteNode *node in ownerPlane.children) {
-        [node removeAllActions];
-    }
-    SKAction *showGOSAction = [SKAction sequence:@[[SKAction waitForDuration:1], [SKAction runBlock:^{
-        [_delegate gameOverWithScore:0];
-    }]]];
-    
-    [self runAction:showGOSAction];
 }
 
 -(void)runner:(Runner *)runner CollidedWithHole:(Hole *)hole
 {
-    if (!runner.isJumping) {
+    if (!runner.isJumping && runner.lane == hole.lane) {
         _isRunning = NO;
         NSLog(@"Game over - hole");
         SKSpriteNode *ownerPlane;
