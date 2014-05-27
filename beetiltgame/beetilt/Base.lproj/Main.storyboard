@@ -56,7 +56,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="NHE-n8-c6w" customClass="SKView">
-                                <rect key="frame" x="0.0" y="40" width="320" height="488"/>
+                                <rect key="frame" x="0.0" y="48" width="320" height="520"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -65,18 +65,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="wCZ-aZ-ffa" customClass="SKView">
-                                <rect key="frame" x="0.0" y="528" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="i3s-Qw-3us"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
-                        <outlet property="bottomView" destination="wCZ-aZ-ffa" id="rkl-54-Kka"/>
                         <outlet property="gameView" destination="NHE-n8-c6w" id="bvS-56-gYj"/>
                         <outlet property="topView" destination="Lfc-jV-hS0" id="tOM-CD-DoH"/>
                     </connections>

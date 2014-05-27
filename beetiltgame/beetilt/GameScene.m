@@ -145,28 +145,18 @@
         CGPathRelease(pathToDraw);
     }
     
-    /*SKShapeNode *topLine = [SKShapeNode node];
+    SKShapeNode *topLine = [SKShapeNode node];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, 0, self.plane1.size.height + 40);
-    CGPathAddLineToPoint(pathToDraw, NULL, self.size.width, self.plane1.size.height + 40);
+    CGPathMoveToPoint(pathToDraw, NULL, 0, self.size.height);
+    CGPathAddLineToPoint(pathToDraw, NULL, self.size.width, self.size.height);
     topLine.lineWidth = 1.5;
     topLine.path = pathToDraw;
     [topLine setStrokeColor:[UIColor blackColor]];
     [self addChild:topLine];
     CGPathRelease(pathToDraw);
     
-    SKShapeNode *bottomLine = [SKShapeNode node];
-    pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, 0, 40);
-    CGPathAddLineToPoint(pathToDraw, NULL, self.size.width, 40);
-    bottomLine.lineWidth = 1.5;
-    bottomLine.path = pathToDraw;
-    [bottomLine setStrokeColor:[UIColor blackColor]];
-    [self addChild:bottomLine];
-    CGPathRelease(pathToDraw);*/
-    
     SKShapeNode *divider = [SKShapeNode node];
-    CGMutablePathRef pathToDraw = CGPathCreateMutable();
+    pathToDraw = CGPathCreateMutable();
     CGPathMoveToPoint(pathToDraw, NULL, self.size.width / 2.0, self.size.height);
     CGPathAddLineToPoint(pathToDraw, NULL, self.size.width / 2.0, 0);
     divider.path = pathToDraw;
