@@ -13,6 +13,10 @@
 
 @interface GameViewController ()
 
+@property (nonatomic, weak) IBOutlet SKView *gameView;
+@property (nonatomic, weak) IBOutlet SKView *topView;
+@property (nonatomic, weak) IBOutlet SKView *bottomView;
+
 @property (nonatomic) GameScene *gameScene;
 
 @end
@@ -55,29 +59,29 @@
     [super viewWillLayoutSubviews];
     
     // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    if (!skView.scene) {
-        skView.showsFPS = YES;
-        skView.showsNodeCount = YES;
-        skView.showsPhysics = YES;
+    //SKView * skView = (SKView *)self.view;
+    if (!_gameView.scene) {
+        _gameView.showsFPS = YES;
+        _gameView.showsNodeCount = YES;
+        _gameView.showsPhysics = YES;
         
         // Create and configure the scene.
-        _gameScene = [GameScene sceneWithSize:skView.bounds.size];
+        _gameScene = [GameScene sceneWithSize:_gameView.bounds.size];
         _gameScene.scaleMode = SKSceneScaleModeAspectFill;
         _gameScene.delegate = self;
         
         // Present the scene.
-        [skView presentScene:_gameScene];
+        [_gameView presentScene:_gameScene];
     }
 }
 
 -(void)gameOverWithScore:(int)score
 {
-    SKView * skView = (SKView *)self.view;
-    GameOverScene *gos = [[GameOverScene alloc] initWithSize:self.view.frame.size andScore:0];
+    //SKView * skView = (SKView *)self.view;
+    GameOverScene *gos = [[GameOverScene alloc] initWithSize:_gameView.frame.size andScore:0];
     gos.delegate = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [skView presentScene:gos transition:[SKTransition flipHorizontalWithDuration:.5]];
+        [_gameView presentScene:gos transition:[SKTransition flipHorizontalWithDuration:.5]];
     });
 
     //[self.navigationController popViewControllerAnimated:YES];
@@ -90,15 +94,15 @@
 
 -(void)retry
 {
-    SKView * skView = (SKView *)self.view;
+    //SKView * skView = (SKView *)self.view;
     
     // Create and configure the scene.
-    _gameScene = [GameScene sceneWithSize:skView.bounds.size];
+    _gameScene = [GameScene sceneWithSize:_gameView.bounds.size];
     _gameScene.scaleMode = SKSceneScaleModeAspectFill;
     _gameScene.delegate = self;
     
     // Present the scene.
-    [skView presentScene:_gameScene transition:[SKTransition flipHorizontalWithDuration:.5]];
+    [_gameView presentScene:_gameScene transition:[SKTransition flipHorizontalWithDuration:.5]];
     [_gameScene initEnvironment];
 }
 

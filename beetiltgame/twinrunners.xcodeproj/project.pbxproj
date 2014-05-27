@@ -21,6 +21,9 @@
 		B01E66BB192BAB4B00C62543 /* hole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01E66BA192BAB4B00C62543 /* hole@2x.png */; };
 		B01E66BF193487E700C62543 /* Shifter.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66BE193487E700C62543 /* Shifter.m */; };
 		B01E66C119348BC500C62543 /* triangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01E66C019348BC500C62543 /* triangle@2x.png */; };
+		B01E66C31934931E00C62543 /* inverter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01E66C21934931E00C62543 /* inverter@2x.png */; };
+		B01E66C61934934900C62543 /* Inverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66C51934934900C62543 /* Inverter.m */; };
+		B01E66C91934C21200C62543 /* HudScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66C81934C21200C62543 /* HudScene.m */; };
 		B0354A101906E0A600E5C730 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A0F1906E0A600E5C730 /* GameViewController.m */; };
 		B0354A131906E13000E5C730 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B0354A121906E13000E5C730 /* GameScene.m */; };
 		B0735E091906DCC60035D1D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0735E081906DCC60035D1D7 /* Foundation.framework */; };
@@ -81,6 +84,11 @@
 		B01E66BD193487E700C62543 /* Shifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shifter.h; sourceTree = "<group>"; };
 		B01E66BE193487E700C62543 /* Shifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shifter.m; sourceTree = "<group>"; };
 		B01E66C019348BC500C62543 /* triangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle@2x.png"; sourceTree = "<group>"; };
+		B01E66C21934931E00C62543 /* inverter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inverter@2x.png"; sourceTree = "<group>"; };
+		B01E66C41934934900C62543 /* Inverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inverter.h; sourceTree = "<group>"; };
+		B01E66C51934934900C62543 /* Inverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Inverter.m; sourceTree = "<group>"; };
+		B01E66C71934C21200C62543 /* HudScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudScene.h; sourceTree = "<group>"; };
+		B01E66C81934C21200C62543 /* HudScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudScene.m; sourceTree = "<group>"; };
 		B0354A0E1906E0A600E5C730 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		B0354A0F1906E0A600E5C730 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		B0354A111906E13000E5C730 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -142,6 +150,7 @@
 		B01E665A192633A600C62543 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B01E66C21934931E00C62543 /* inverter@2x.png */,
 				B01E66C019348BC500C62543 /* triangle@2x.png */,
 				B01E66BA192BAB4B00C62543 /* hole@2x.png */,
 				B01E66B8192BA2D200C62543 /* barrier@2x.png */,
@@ -199,6 +208,8 @@
 				B0354A121906E13000E5C730 /* GameScene.m */,
 				B00DA136192BC6B7002D4546 /* GameOverScene.h */,
 				B00DA137192BC6B7002D4546 /* GameOverScene.m */,
+				B01E66C71934C21200C62543 /* HudScene.h */,
+				B01E66C81934C21200C62543 /* HudScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -311,6 +322,8 @@
 				B01E66711926508D00C62543 /* Ground.m */,
 				B01E66BD193487E700C62543 /* Shifter.h */,
 				B01E66BE193487E700C62543 /* Shifter.m */,
+				B01E66C41934934900C62543 /* Inverter.h */,
+				B01E66C51934934900C62543 /* Inverter.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -396,6 +409,7 @@
 			files = (
 				B01E66BB192BAB4B00C62543 /* hole@2x.png in Resources */,
 				B01E6674192652A700C62543 /* ground@2x.png in Resources */,
+				B01E66C31934931E00C62543 /* inverter@2x.png in Resources */,
 				B0735E151906DCC60035D1D7 /* InfoPlist.strings in Resources */,
 				B01E66B3192B941500C62543 /* square@2x.png in Resources */,
 				B0735E281906DCC60035D1D7 /* Images.xcassets in Resources */,
@@ -424,8 +438,10 @@
 				B01E66661926343800C62543 /* Hole.m in Sources */,
 				B01E66B7192BA16900C62543 /* CommonTools.m in Sources */,
 				B0CEDC831907B681006537C2 /* GameObject.m in Sources */,
+				B01E66C91934C21200C62543 /* HudScene.m in Sources */,
 				B0735E241906DCC60035D1D7 /* MainScene.m in Sources */,
 				B0CEDC7C1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld in Sources */,
+				B01E66C61934934900C62543 /* Inverter.m in Sources */,
 				B00DA138192BC6B7002D4546 /* GameOverScene.m in Sources */,
 				B0735E211906DCC60035D1D7 /* MainViewController.m in Sources */,
 				B01E66721926508D00C62543 /* Ground.m in Sources */,

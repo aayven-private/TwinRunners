@@ -12,6 +12,7 @@
 #import "Ground.h"
 #import "Runner.h"
 #import "Shifter.h"
+#import "Inverter.h"
 
 @interface ContactManager()
 
@@ -48,38 +49,9 @@
         [_delegate runner:runner collidedWithHole:(Hole *)other];
     } else if ([other isKindOfClass:[Shifter class]]) {
         [_delegate runner:runner collidedWithShifter:(Shifter *)other];
+    } else if ([other isKindOfClass:[Inverter class]]) {
+        [_delegate invertDirections];
     }
-    
-    /*if (contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
-        if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
-            [_delegate runner:(Runner *)contact.bodyB.node CollidedWithBarrier:(Barrier *)contact.bodyA.node];
-        }
-    }
-    if (contact.bodyB.categoryBitMask == kObjectCategoryBarrier) {
-        if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
-            [_delegate runner:(Runner *)contact.bodyA.node CollidedWithBarrier:(Barrier *)contact.bodyB.node];
-        }
-    }
-    if (contact.bodyA.categoryBitMask == kObjectCategoryHole) {
-        if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
-            [_delegate runner:(Runner *)contact.bodyB.node CollidedWithHole:(Hole *)contact.bodyA.node];
-        }
-    }
-    if (contact.bodyB.categoryBitMask == kObjectCategoryHole) {
-        if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
-            [_delegate runner:(Runner *)contact.bodyA.node CollidedWithHole:(Hole *)contact.bodyB.node];
-        }
-    }
-    if (contact.bodyA.categoryBitMask == kObjectCategoryShifter) {
-        if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
-            [_delegate runner:(Runner *)contact.bodyB.node CollidedWithHole:(Hole *)contact.bodyA.node];
-        }
-    }
-    if (contact.bodyB.categoryBitMask == kObjectCategoryShifter) {
-        if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
-            [_delegate runner:(Runner *)contact.bodyA.node CollidedWithHole:(Hole *)contact.bodyB.node];
-        }
-    }*/
 }
 
 -(void)didEndContact:(SKPhysicsContact *)contact

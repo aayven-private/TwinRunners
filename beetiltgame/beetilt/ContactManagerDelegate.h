@@ -17,5 +17,6 @@
 -(void)runner:(Runner *)runner collidedWithBarrier:(Barrier *)barrier;
 -(void)runner:(Runner *)runner collidedWithHole:(Hole *)hole;
 -(void)runner:(Runner *)runner collidedWithShifter:(Shifter *)shifter;
+-(void)invertDirections;
 
 @end

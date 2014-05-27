@@ -10,7 +10,8 @@
 #import "Runner.h"
 #import "Barrier.h"
 #import "Hole.h"
-#import "Ground.h"
+#import "Shifter.h"
+#import "Inverter.h"
 #import "ParallaxBG.h"
 #import "CommonTools.h"
 
@@ -31,11 +32,16 @@
 @property (nonatomic) SKTexture *barrierTexture;
 @property (nonatomic) SKTexture *holeTexture;
 @property (nonatomic) SKTexture *shifterTexture;
+@property (nonatomic) SKTexture *inverterTexture;
 
 @property (nonatomic) NSTimeInterval spawnInterval;
 @property (nonatomic) NSTimeInterval lastSpawnInterval;
 
 @property (nonatomic) BOOL isRunning;
+@property (nonatomic) BOOL isinverted;
+
+@property (nonatomic) SKSpriteNode *hud;
+@property (nonatomic) SKSpriteNode *inverterIcon;
 
 @end
 
@@ -50,9 +56,11 @@
         self.barrierTexture = [SKTexture textureWithImageNamed:@"barrier"];
         self.holeTexture = [SKTexture textureWithImageNamed:@"hole"];
         self.shifterTexture = [SKTexture textureWithImageNamed:@"triangle"];
+        self.inverterTexture = [SKTexture textureWithImageNamed:@"inverter"];
         
         self.isRunning = YES;
         self.spawnInterval = 1.2f;
+        self.isinverted = NO;
     }
     return self;
 }
@@ -133,6 +141,26 @@
         CGPathRelease(pathToDraw);
     }
     
+    /*SKShapeNode *topLine = [SKShapeNode node];
+    CGMutablePathRef pathToDraw = CGPathCreateMutable();
+    CGPathMoveToPoint(pathToDraw, NULL, 0, self.plane1.size.height + 40);
+    CGPathAddLineToPoint(pathToDraw, NULL, self.size.width, self.plane1.size.height + 40);
+    topLine.lineWidth = 1.5;
+    topLine.path = pathToDraw;
+    [topLine setStrokeColor:[UIColor blackColor]];
+    [self addChild:topLine];
+    CGPathRelease(pathToDraw);
+    
+    SKShapeNode *bottomLine = [SKShapeNode node];
+    pathToDraw = CGPathCreateMutable();
+    CGPathMoveToPoint(pathToDraw, NULL, 0, 40);
+    CGPathAddLineToPoint(pathToDraw, NULL, self.size.width, 40);
+    bottomLine.lineWidth = 1.5;
+    bottomLine.path = pathToDraw;
+    [bottomLine setStrokeColor:[UIColor blackColor]];
+    [self addChild:bottomLine];
+    CGPathRelease(pathToDraw);*/
+    
     SKShapeNode *divider = [SKShapeNode node];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
     CGPathMoveToPoint(pathToDraw, NULL, self.size.width / 2.0, self.size.height);
@@ -167,8 +195,8 @@
 -(void)addRandomObstacle
 {
     GameObject *obstacle1, *obstacle2;
-    int obstacleType1 = [CommonTools getRandomNumberFromInt:0 toInt:2];
-    int obstacleType2 = [CommonTools getRandomNumberFromInt:0 toInt:2];
+    int obstacleType1 = [CommonTools getRandomNumberFromInt:0 toInt:3];
+    int obstacleType2 = [CommonTools getRandomNumberFromInt:0 toInt:3];
     
     int obstacleLane1 = [CommonTools getRandomNumberFromInt:0 toInt:2];
     int obstacleLane2 = [CommonTools getRandomNumberFromInt:0 toInt:2];
@@ -188,6 +216,9 @@
                 ((Shifter *)obstacle1).shiftDirection = kDirectionLeft;
             }
         } break;
+        case 3: {
+            obstacle1 = [[Inverter alloc] initWithTexture:self.inverterTexture];
+        } break;
     }
     
     switch (obstacleType2) {
@@ -204,6 +235,9 @@
             } else if (obstacleLane2 == 2) {
                 ((Shifter *)obstacle2).shiftDirection = kDirectionLeft;
             }
+        } break;
+        case 3: {
+            obstacle2 = [[Inverter alloc] initWithTexture:self.inverterTexture];
         } break;
     }
     
@@ -225,16 +259,26 @@
 -(void)moveLeft:(UISwipeGestureRecognizer *)recognizer
 {
     if (_isRunning) {
-        [self moveRunner:_runner1 inDirection:kDirectionLeft];
-        [self moveRunner:_runner2 inDirection:kDirectionLeft];
+        if (!_isinverted) {
+            [self moveRunner:_runner1 inDirection:kDirectionLeft];
+            [self moveRunner:_runner2 inDirection:kDirectionLeft];
+        } else {
+            [self moveRunner:_runner1 inDirection:kDirectionRight];
+            [self moveRunner:_runner2 inDirection:kDirectionRight];
+        }
     }
 }
 
 -(void)moveRight:(UISwipeGestureRecognizer *)recognizer
 {
     if (_isRunning) {
-        [self moveRunner:_runner1 inDirection:kDirectionRight];
-        [self moveRunner:_runner2 inDirection:kDirectionRight];
+        if (!_isinverted) {
+            [self moveRunner:_runner1 inDirection:kDirectionRight];
+            [self moveRunner:_runner2 inDirection:kDirectionRight];
+        } else {
+            [self moveRunner:_runner1 inDirection:kDirectionLeft];
+            [self moveRunner:_runner2 inDirection:kDirectionLeft];
+        }
     }
 }
 
@@ -345,6 +389,21 @@
     if (runner.lane == shifter.lane) {
         [self moveRunner:runner inDirection:shifter.shiftDirection];
     }
+}
+
+-(void)invertDirections
+{
+    SKAction *invertAction = [SKAction sequence:@[[SKAction runBlock:^{
+        self.isinverted = YES;
+    }], [SKAction waitForDuration:5], [SKAction runBlock:^{
+        self.isinverted = NO;
+    }]]];
+    [self runAction:invertAction];
+}
+
+-(void)setInverterIconHidden:(BOOL)isHidden
+{
+    
 }
 
 @end
