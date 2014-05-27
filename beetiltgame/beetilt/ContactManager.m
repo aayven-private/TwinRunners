@@ -11,6 +11,7 @@
 #import "Hole.h"
 #import "Ground.h"
 #import "Runner.h"
+#import "Shifter.h"
 
 @interface ContactManager()
 
@@ -30,7 +31,26 @@
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
-    if (contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
+    Runner *runner;
+    GameObject *other;
+    if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
+        runner = (Runner *)contact.bodyA.node;
+        other = (GameObject *)contact.bodyB.node;
+    }
+    if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
+        runner = (Runner *)contact.bodyB.node;
+        other = (GameObject *)contact.bodyA.node;
+    }
+    
+    if ([other isKindOfClass:[Barrier class]]) {
+        [_delegate runner:runner collidedWithBarrier:(Barrier *)other];
+    } else if ([other isKindOfClass:[Hole class]]) {
+        [_delegate runner:runner collidedWithHole:(Hole *)other];
+    } else if ([other isKindOfClass:[Shifter class]]) {
+        [_delegate runner:runner collidedWithShifter:(Shifter *)other];
+    }
+    
+    /*if (contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
         if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
             [_delegate runner:(Runner *)contact.bodyB.node CollidedWithBarrier:(Barrier *)contact.bodyA.node];
         }
@@ -50,22 +70,14 @@
             [_delegate runner:(Runner *)contact.bodyA.node CollidedWithHole:(Hole *)contact.bodyB.node];
         }
     }
-    
-    /*if (contact.bodyA.categoryBitMask == kObjectCategoryFrame) {
-        if (contact.bodyB.categoryBitMask == kObjectCategoryGround || contact.bodyB.categoryBitMask == kObjectCategoryHole || contact.bodyB.categoryBitMask == kObjectCategoryBarrier) {
-            GameObject *enteringObject = (GameObject *)contact.bodyB.node;
-            if (!enteringObject.isOnScreen) {
-                //enteringObject.isOnScreen = YES;
-                [_delegate gameObjectEnteredScene:enteringObject];
-            }
+    if (contact.bodyA.categoryBitMask == kObjectCategoryShifter) {
+        if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
+            [_delegate runner:(Runner *)contact.bodyB.node CollidedWithHole:(Hole *)contact.bodyA.node];
         }
-    } else if (contact.bodyB.categoryBitMask == kObjectCategoryFrame) {
-        if (contact.bodyA.categoryBitMask == kObjectCategoryGround || contact.bodyA.categoryBitMask == kObjectCategoryHole || contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
-            GameObject *enteringObject = (GameObject *)contact.bodyA.node;
-            if (!enteringObject.isOnScreen) {
-                //enteringObject.isOnScreen = YES;
-                [_delegate gameObjectEnteredScene:enteringObject];
-            }
+    }
+    if (contact.bodyB.categoryBitMask == kObjectCategoryShifter) {
+        if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
+            [_delegate runner:(Runner *)contact.bodyA.node CollidedWithHole:(Hole *)contact.bodyB.node];
         }
     }*/
 }

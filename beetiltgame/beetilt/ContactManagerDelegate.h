@@ -10,10 +10,12 @@
 #import "Runner.h"
 #import "Barrier.h"
 #import "Hole.h"
+#import "Shifter.h"
 
 @protocol ContactManagerDelegate <NSObject>
 
--(void)runner:(Runner *)runner CollidedWithBarrier:(Barrier *)barrier;
--(void)runner:(Runner *)runner CollidedWithHole:(Hole *)hole;
+-(void)runner:(Runner *)runner collidedWithBarrier:(Barrier *)barrier;
+-(void)runner:(Runner *)runner collidedWithHole:(Hole *)hole;
+-(void)runner:(Runner *)runner collidedWithShifter:(Shifter *)shifter;
 
 @end

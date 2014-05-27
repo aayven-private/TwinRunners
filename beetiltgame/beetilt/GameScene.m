@@ -30,6 +30,7 @@
 @property (nonatomic) SKTexture *runnerTexture;
 @property (nonatomic) SKTexture *barrierTexture;
 @property (nonatomic) SKTexture *holeTexture;
+@property (nonatomic) SKTexture *shifterTexture;
 
 @property (nonatomic) NSTimeInterval spawnInterval;
 @property (nonatomic) NSTimeInterval lastSpawnInterval;
@@ -44,9 +45,12 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        
         self.runnerTexture = [SKTexture textureWithImageNamed:@"square"];
         self.barrierTexture = [SKTexture textureWithImageNamed:@"barrier"];
         self.holeTexture = [SKTexture textureWithImageNamed:@"hole"];
+        self.shifterTexture = [SKTexture textureWithImageNamed:@"triangle"];
+        
         self.isRunning = YES;
         self.spawnInterval = 1.2f;
     }
@@ -163,8 +167,8 @@
 -(void)addRandomObstacle
 {
     GameObject *obstacle1, *obstacle2;
-    int obstacleType1 = [CommonTools getRandomNumberFromInt:0 toInt:1];
-    int obstacleType2 = [CommonTools getRandomNumberFromInt:0 toInt:1];
+    int obstacleType1 = [CommonTools getRandomNumberFromInt:0 toInt:2];
+    int obstacleType2 = [CommonTools getRandomNumberFromInt:0 toInt:2];
     
     int obstacleLane1 = [CommonTools getRandomNumberFromInt:0 toInt:2];
     int obstacleLane2 = [CommonTools getRandomNumberFromInt:0 toInt:2];
@@ -176,6 +180,14 @@
         case 1: {
             obstacle1 = [[Hole alloc] initWithTexture:self.holeTexture];
         } break;
+        case 2: {
+            obstacle1 = [[Shifter alloc] initWithTexture:self.shifterTexture];
+            if (obstacleLane1 == 0) {
+                ((Shifter *)obstacle1).shiftDirection = kDirectionRight;
+            } else if (obstacleLane1 == 2) {
+                ((Shifter *)obstacle1).shiftDirection = kDirectionLeft;
+            }
+        } break;
     }
     
     switch (obstacleType2) {
@@ -184,6 +196,14 @@
         } break;
         case 1: {
             obstacle2 = [[Hole alloc] initWithTexture:self.holeTexture];
+        } break;
+        case 2: {
+            obstacle2 = [[Shifter alloc] initWithTexture:self.shifterTexture];
+            if (obstacleLane2 == 0) {
+                ((Shifter *)obstacle2).shiftDirection = kDirectionRight;
+            } else if (obstacleLane2 == 2) {
+                ((Shifter *)obstacle2).shiftDirection = kDirectionLeft;
+            }
         } break;
     }
     
@@ -205,70 +225,54 @@
 -(void)moveLeft:(UISwipeGestureRecognizer *)recognizer
 {
     if (_isRunning) {
-        switch (_runner1.lane) {
-            case 0: {
-                
-            } break;
-            case 1: {
-                _runner1.lane = 0;
-                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 6.0 duration:.05]];
-            } break;
-            case 2: {
-                _runner1.lane = 1;
-                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
-            } break;
-            default: break;
-        }
-        
-        switch (_runner2.lane) {
-            case 0: {
-                
-            } break;
-            case 1: {
-                _runner2.lane = 0;
-                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 6.0 duration:.05]];
-            } break;
-            case 2: {
-                _runner2.lane = 1;
-                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 2.0 duration:.05]];
-            } break;
-            default: break;
-        }
+        [self moveRunner:_runner1 inDirection:kDirectionLeft];
+        [self moveRunner:_runner2 inDirection:kDirectionLeft];
     }
 }
 
 -(void)moveRight:(UISwipeGestureRecognizer *)recognizer
 {
     if (_isRunning) {
-        switch (_runner1.lane) {
-            case 0: {
-                _runner1.lane = 1;
-                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
-            } break;
-            case 1: {
-                _runner1.lane = 2;
-                [_runner1 runAction:[SKAction moveToX:self.plane1.size.width * 5.0 / 6.0 duration:.05]];
-            } break;
-            case 2: {
-                
-            } break;
-            default: break;
-        }
-        
-        switch (_runner2.lane) {
-            case 0: {
-                _runner2.lane = 1;
-                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width / 2.0 duration:.05]];
-            } break;
-            case 1: {
-                _runner2.lane = 2;
-                [_runner2 runAction:[SKAction moveToX:self.plane2.size.width * 5.0 / 6.0 duration:.05]];
-            } break;
-            case 2: {
-                
-            } break;
-            default: break;
-        }
+        [self moveRunner:_runner1 inDirection:kDirectionRight];
+        [self moveRunner:_runner2 inDirection:kDirectionRight];
+    }
+}
+
+-(void)moveRunner:(Runner *)runner inDirection:(Direction)direction
+{
+    switch (direction) {
+        case kDirectionLeft: {
+            switch (runner.lane) {
+                case 0: {
+                    
+                } break;
+                case 1: {
+                    runner.lane = 0;
+                    [runner runAction:[SKAction moveToX:self.plane1.size.width / 6.0 duration:.05]];
+                } break;
+                case 2: {
+                    runner.lane = 1;
+                    [runner runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
+                } break;
+                default: break;
+            }
+        } break;
+        case kDirectionRight: {
+            switch (runner.lane) {
+                case 0: {
+                    runner.lane = 1;
+                    [runner runAction:[SKAction moveToX:self.plane1.size.width / 2.0 duration:.05]];
+                } break;
+                case 1: {
+                    runner.lane = 2;
+                    [runner runAction:[SKAction moveToX:self.plane1.size.width * 5.0 / 6.0 duration:.05]];
+                } break;
+                case 2: {
+                    
+                } break;
+                default: break;
+            }
+        } break;
     }
 }
 
@@ -287,7 +291,7 @@
     }
 }
 
--(void)runner:(Runner *)runner CollidedWithBarrier:(Barrier *)barrier
+-(void)runner:(Runner *)runner collidedWithBarrier:(Barrier *)barrier
 {
     if (runner.lane == barrier.lane) {
         _isRunning = NO;
@@ -309,7 +313,7 @@
     }
 }
 
--(void)runner:(Runner *)runner CollidedWithHole:(Hole *)hole
+-(void)runner:(Runner *)runner collidedWithHole:(Hole *)hole
 {
     if (!runner.isJumping && runner.lane == hole.lane) {
         _isRunning = NO;
@@ -333,6 +337,13 @@
         }]]];
         
         [self runAction:showGOSAction];
+    }
+}
+
+-(void)runner:(Runner *)runner collidedWithShifter:(Shifter *)shifter
+{
+    if (runner.lane == shifter.lane) {
+        [self moveRunner:runner inDirection:shifter.shiftDirection];
     }
 }
 
