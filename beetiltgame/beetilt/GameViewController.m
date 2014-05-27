@@ -10,6 +10,7 @@
 #import "GameViewController.h"
 #import "GameScene.h"
 #import "GameOverScene.h"
+#import "HudScene.h"
 
 @interface GameViewController ()
 
@@ -18,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet SKView *bottomView;
 
 @property (nonatomic) GameScene *gameScene;
+@property (nonatomic) HudScene *hudScene;
 
 @end
 
@@ -46,6 +48,7 @@
 {
     [super viewDidAppear:animated];
     [_gameScene initEnvironment];
+    [_hudScene initHud];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,6 +75,18 @@
         
         // Present the scene.
         [_gameView presentScene:_gameScene];
+    }
+    if (!_topView.scene) {
+        _topView.showsFPS = NO;
+        _topView.showsNodeCount = NO;
+        _topView.showsPhysics = NO;
+        
+        // Create and configure the scene.
+        _hudScene = [HudScene sceneWithSize:_topView.bounds.size];
+        _hudScene.scaleMode = SKSceneScaleModeAspectFill;
+        
+        // Present the scene.
+        [_topView presentScene:_hudScene];
     }
 }
 
@@ -104,6 +119,20 @@
     // Present the scene.
     [_gameView presentScene:_gameScene transition:[SKTransition flipHorizontalWithDuration:.5]];
     [_gameScene initEnvironment];
+    
+    // Create and configure the scene.
+    _hudScene = [HudScene sceneWithSize:_topView.bounds.size];
+    _hudScene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Present the scene.
+    [_topView presentScene:_hudScene];
+    [_hudScene initHud];
+}
+
+
+-(void)scoreChanged:(int)newScore
+{
+    [_hudScene showScore:newScore];
 }
 
 /*

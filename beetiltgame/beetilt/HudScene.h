@@ -10,4 +10,7 @@
 
 @interface HudScene : SKScene
 
+-(void)initHud;
+-(void)showScore:(int)score;
+
 @end

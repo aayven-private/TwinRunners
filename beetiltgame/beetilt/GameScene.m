@@ -43,6 +43,8 @@
 @property (nonatomic) SKSpriteNode *hud;
 @property (nonatomic) SKSpriteNode *inverterIcon;
 
+@property (nonatomic) int score;
+
 @end
 
 @implementation GameScene
@@ -61,6 +63,8 @@
         self.isRunning = YES;
         self.spawnInterval = 1.2f;
         self.isinverted = NO;
+        
+        self.score = 0;
     }
     return self;
 }
@@ -247,10 +251,18 @@
     obstacle1.lane = obstacleLane1;
     obstacle2.lane = obstacleLane2;
     
-    SKAction *moveAction = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:2], [SKAction removeFromParent]]];
+    SKAction *moveAction1 = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:2], [SKAction runBlock:^{
+        _score += obstacle1.objectValue;
+        [_delegate scoreChanged:_score];
+    }],[SKAction removeFromParent]]];
     
-    [obstacle1 runAction:moveAction];
-    [obstacle2 runAction:moveAction];
+    SKAction *moveAction2 = [SKAction sequence:@[[SKAction moveToY:-obstacle1.size.height / 2.0 duration:2], [SKAction runBlock:^{
+        _score += obstacle2.objectValue;
+        [_delegate scoreChanged:_score];
+    }],[SKAction removeFromParent]]];
+    
+    [obstacle1 runAction:moveAction1];
+    [obstacle2 runAction:moveAction2];
     
     [self.plane1 addChild:obstacle1];
     [self.plane2 addChild:obstacle2];

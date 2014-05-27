@@ -24,6 +24,7 @@
         self.physicsBody.affectedByGravity = NO;
         self.isOnScreen = NO;
         self.shiftDirection = [CommonTools getRandomNumberFromInt:0 toInt:1];
+        self.objectValue = 0;
     }
     return self;
 }

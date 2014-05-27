@@ -22,6 +22,7 @@
         self.physicsBody.dynamic = YES;
         self.physicsBody.affectedByGravity = NO;
         self.isOnScreen = NO;
+        self.objectValue = 0;
     }
     return self;
 }

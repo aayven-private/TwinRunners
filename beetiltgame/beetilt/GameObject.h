@@ -15,5 +15,6 @@
 
 @property (nonatomic) BOOL isOnScreen;
 @property (nonatomic) int lane;
+@property (nonatomic) int objectValue;
 
 @end

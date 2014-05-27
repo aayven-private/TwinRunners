@@ -13,5 +13,6 @@
 -(void)gameOverWithScore:(int)score;
 -(void)retry;
 -(void)quit;
+-(void)scoreChanged:(int)newScore;
 
 @end
