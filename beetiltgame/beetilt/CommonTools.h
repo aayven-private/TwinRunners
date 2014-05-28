@@ -18,5 +18,6 @@
 
 +(int)getRandomNumberFromInt:(int)from toInt:(int)to;
 +(float)getRandomFloatFromFloat:(float)from toFloat:(float)to;
++(id)getRandomElementFromArray:(NSArray *)array;
 
 @end

@@ -37,6 +37,9 @@
 @property (nonatomic) NSTimeInterval spawnInterval;
 @property (nonatomic) NSTimeInterval lastSpawnInterval;
 
+@property (nonatomic) NSTimeInterval spawnInterval_bonus;
+@property (nonatomic) NSTimeInterval lastSpawnInterval_bonus;
+
 @property (nonatomic) BOOL isRunning;
 @property (nonatomic) BOOL isinverted;
 
@@ -44,6 +47,8 @@
 @property (nonatomic) SKSpriteNode *inverterIcon;
 
 @property (nonatomic) int score;
+
+@property (nonatomic) SKAction *moveAction;
 
 @end
 
@@ -60,8 +65,11 @@
         self.shifterTexture = [SKTexture textureWithImageNamed:@"triangle"];
         self.inverterTexture = [SKTexture textureWithImageNamed:@"inverter"];
         
+        self.moveAction = [SKAction sequence:@[[SKAction moveToY:-self.barrierTexture.size.height / 2.0 duration:2],[SKAction removeFromParent]]];
+        
         self.isRunning = YES;
-        self.spawnInterval = 1.2f;
+        self.spawnInterval = .8f;
+        self.spawnInterval_bonus = 1.8f;
         self.isinverted = NO;
         
         self.score = 0;
@@ -181,12 +189,121 @@
         _lastSpawnInterval += timeSinceLast;
         if (_lastSpawnInterval > _spawnInterval) {
             _lastSpawnInterval = 0;
-            [self addRandomObstacle];
+            [self addRandomBarrier];
+        }
+        
+        _lastSpawnInterval_bonus += timeSinceLast;
+        if (_lastSpawnInterval_bonus > _spawnInterval_bonus) {
+            _lastSpawnInterval_bonus = 0;
+            _spawnInterval_bonus = 1.2f;
+            //[self addRandomBonus];
         }
     }
 }
 
--(void)addRandomObstacle
+-(void)addRandomBarrier
+{
+    NSMutableArray *obstacles_plane1 = [NSMutableArray array], *obstacles_plane2 = [NSMutableArray array];
+    
+    int freeLane = [CommonTools getRandomNumberFromInt:0 toInt:2];
+    NSNumber *freeLaneIndex = [NSNumber numberWithInt:freeLane];
+    
+    int obstacleCountLane1 = [CommonTools getRandomNumberFromInt:1 toInt:1];
+    int obstacleCountLane2 = [CommonTools getRandomNumberFromInt:1 toInt:1];
+    
+    NSMutableArray *possibleLaneIndices = [NSMutableArray arrayWithArray:@[@0, @1, @2]];
+    [possibleLaneIndices removeObject:freeLaneIndex];
+    
+    for (int i=0; i<obstacleCountLane1; i++) {
+        GameObject *obstacle;
+        NSNumber *lane = [CommonTools getRandomElementFromArray:possibleLaneIndices];
+        int obstacleType = [CommonTools getRandomNumberFromInt:0 toInt:1];
+        
+        switch (obstacleType) {
+            case 0: {
+                obstacle = [[Barrier alloc] initWithTexture:self.barrierTexture];
+            } break;
+            case 1: {
+                obstacle = [[Hole alloc] initWithTexture:self.holeTexture];
+            } break;
+        }
+        obstacle.lane = lane.intValue;
+        obstacle.position = CGPointMake((lane.intValue * 2.0 / 6.0 + 1.0 / 6.0) * self.plane1.size.width, self.plane1.size.height + obstacle.size.height / 2.0);
+        
+        [obstacle runAction:_moveAction];
+        [obstacles_plane1 addObject:obstacle];
+        
+        [possibleLaneIndices removeObject:lane];
+    }
+    
+    possibleLaneIndices = [NSMutableArray arrayWithArray:@[@0, @1, @2]];
+    [possibleLaneIndices removeObject:freeLaneIndex];
+    
+    for (int i=0; i<obstacleCountLane2; i++) {
+        GameObject *obstacle;
+        NSNumber *lane = [CommonTools getRandomElementFromArray:possibleLaneIndices];
+        int obstacleType = [CommonTools getRandomNumberFromInt:0 toInt:1];
+        
+        switch (obstacleType) {
+            case 0: {
+                obstacle = [[Barrier alloc] initWithTexture:self.barrierTexture];
+            } break;
+            case 1: {
+                obstacle = [[Hole alloc] initWithTexture:self.holeTexture];
+            } break;
+        }
+        obstacle.lane = lane.intValue;
+        obstacle.position = CGPointMake((lane.intValue * 2.0 / 6.0 + 1.0 / 6.0) * self.plane2.size.width, self.plane2.size.height + obstacle.size.height / 2.0);
+        
+        [obstacle runAction:_moveAction];
+        [obstacles_plane2 addObject:obstacle];
+        
+        [possibleLaneIndices removeObject:lane];
+    }
+    
+    for (GameObject *obstacle in obstacles_plane1) {
+        [self.plane1 addChild:obstacle];
+    }
+    
+    for (GameObject *obstacle in obstacles_plane2) {
+        [self.plane2 addChild:obstacle];
+    }
+}
+
+-(void)addRandomBonus
+{
+    int planeIndex = [CommonTools getRandomNumberFromInt:0 toInt:1];
+    int laneIndex = [CommonTools getRandomNumberFromInt:0 toInt:2];
+    GameObject *bonus;
+    int bonusType = [CommonTools getRandomNumberFromInt:0 toInt:1];
+    switch (bonusType) {
+        case 0: {
+            bonus = [[Shifter alloc] initWithTexture:self.shifterTexture];
+            if (laneIndex == 0) {
+                ((Shifter *)bonus).shiftDirection = kDirectionRight;
+            } else if (laneIndex == 2) {
+                ((Shifter *)bonus).shiftDirection = kDirectionLeft;
+            }
+        } break;
+        case 1: {
+            bonus = [[Inverter alloc] initWithTexture:self.inverterTexture];
+        } break;
+    }
+    
+    bonus.position = CGPointMake((laneIndex * 2.0 / 6.0 + 1.0 / 6.0) * self.plane1.size.width, self.plane1.size.height + bonus.size.height / 2.0);
+    [bonus runAction:_moveAction];
+    
+    switch (planeIndex) {
+        case 0: {
+            [self.plane1 addChild:bonus];
+        } break;
+        case 1: {
+            [self.plane2 addChild:bonus];
+        } break;
+    }
+}
+
+/*-(void)addRandomObstacle
 {
     GameObject *obstacle1, *obstacle2;
     int obstacleType1 = [CommonTools getRandomNumberFromInt:0 toInt:3];
@@ -256,7 +373,7 @@
     
     [self.plane1 addChild:obstacle1];
     [self.plane2 addChild:obstacle2];
-}
+}*/
 
 -(void)moveLeft:(UISwipeGestureRecognizer *)recognizer
 {

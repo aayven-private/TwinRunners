@@ -22,5 +22,11 @@
     return ((float)arc4random() / ARC4RANDOM_MAX) * (to-from) + from;
 }
 
++(id)getRandomElementFromArray:(NSArray *)array
+{
+    int randomIndex = [CommonTools getRandomNumberFromInt:0 toInt:array.count - 1];
+    return [array objectAtIndex:randomIndex];
+}
+
 @end
 
