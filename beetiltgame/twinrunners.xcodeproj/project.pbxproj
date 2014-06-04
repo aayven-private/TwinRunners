@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B00DA138192BC6B7002D4546 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B00DA137192BC6B7002D4546 /* GameOverScene.m */; };
+		B010F70B193F6F81009E4A34 /* level1.plist in Resources */ = {isa = PBXBuildFile; fileRef = B010F70A193F6F81009E4A34 /* level1.plist */; };
+		B010F70F193F86E8009E4A34 /* LevelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B010F70E193F86E8009E4A34 /* LevelManager.m */; };
 		B01E66601926342000C62543 /* Runner.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E665F1926342000C62543 /* Runner.m */; };
 		B01E66631926342D00C62543 /* Barrier.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66621926342D00C62543 /* Barrier.m */; };
 		B01E66661926343800C62543 /* Hole.m in Sources */ = {isa = PBXBuildFile; fileRef = B01E66651926343800C62543 /* Hole.m */; };
@@ -61,6 +63,9 @@
 		B00DA135192BC46A002D4546 /* GameSceneHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSceneHandlerDelegate.h; sourceTree = "<group>"; };
 		B00DA136192BC6B7002D4546 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		B00DA137192BC6B7002D4546 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		B010F70A193F6F81009E4A34 /* level1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = level1.plist; sourceTree = "<group>"; };
+		B010F70D193F86E8009E4A34 /* LevelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelManager.h; sourceTree = "<group>"; };
+		B010F70E193F86E8009E4A34 /* LevelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelManager.m; sourceTree = "<group>"; };
 		B01E665B192633B800C62543 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B01E665E1926342000C62543 /* Runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runner.h; sourceTree = "<group>"; };
 		B01E665F1926342000C62543 /* Runner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Runner.m; sourceTree = "<group>"; };
@@ -147,9 +152,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B010F709193F6F74009E4A34 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				B010F70A193F6F81009E4A34 /* level1.plist */,
+			);
+			name = Levels;
+			sourceTree = "<group>";
+		};
+		B010F70C193F86D0009E4A34 /* LevelManagement */ = {
+			isa = PBXGroup;
+			children = (
+				B010F70D193F86E8009E4A34 /* LevelManager.h */,
+				B010F70E193F86E8009E4A34 /* LevelManager.m */,
+			);
+			name = LevelManagement;
+			sourceTree = "<group>";
+		};
 		B01E665A192633A600C62543 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B010F709193F6F74009E4A34 /* Levels */,
 				B01E66C21934931E00C62543 /* inverter@2x.png */,
 				B01E66C019348BC500C62543 /* triangle@2x.png */,
 				B01E66BA192BAB4B00C62543 /* hole@2x.png */,
@@ -248,6 +271,7 @@
 		B0735E101906DCC60035D1D7 /* twinrunners */ = {
 			isa = PBXGroup;
 			children = (
+				B010F70C193F86D0009E4A34 /* LevelManagement */,
 				B01E66B4192BA15200C62543 /* Helpers */,
 				B01E666B192643F400C62543 /* Protocols */,
 				B01E6667192643C500C62543 /* ContactManagement */,
@@ -414,6 +438,7 @@
 				B01E66B3192B941500C62543 /* square@2x.png in Resources */,
 				B0735E281906DCC60035D1D7 /* Images.xcassets in Resources */,
 				B01E66C119348BC500C62543 /* triangle@2x.png in Resources */,
+				B010F70B193F6F81009E4A34 /* level1.plist in Resources */,
 				B01E66B9192BA2D200C62543 /* barrier@2x.png in Resources */,
 				B0735E1E1906DCC60035D1D7 /* Main.storyboard in Resources */,
 			);
@@ -434,6 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B010F70F193F86E8009E4A34 /* LevelManager.m in Sources */,
 				B0354A101906E0A600E5C730 /* GameViewController.m in Sources */,
 				B01E66661926343800C62543 /* Hole.m in Sources */,
 				B01E66B7192BA16900C62543 /* CommonTools.m in Sources */,

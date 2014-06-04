@@ -14,6 +14,7 @@
 #import "Inverter.h"
 #import "ParallaxBG.h"
 #import "CommonTools.h"
+#import "LevelManager.h"
 
 @interface GameScene()
 
@@ -49,6 +50,7 @@
 @property (nonatomic) int score;
 
 @property (nonatomic) SKAction *moveAction;
+@property (nonatomic) LevelManager *levelManager;
 
 @end
 
@@ -73,6 +75,8 @@
         self.isinverted = NO;
         
         self.score = 0;
+        
+        self.levelManager = [[LevelManager alloc] init];
     }
     return self;
 }
@@ -80,6 +84,9 @@
 -(void)initEnvironment
 {
     [self removeAllChildren];
+    
+    NSArray *level = [_levelManager loadLevelWithIndex:1];
+    NSLog(@"Level: %@", level);
     
     UISwipeGestureRecognizer* swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveLeft:)];
     swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
