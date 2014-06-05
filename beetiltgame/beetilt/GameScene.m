@@ -52,6 +52,11 @@
 @property (nonatomic) SKAction *moveAction;
 @property (nonatomic) LevelManager *levelManager;
 
+@property (nonatomic) NSArray *currentLevel;
+@property (nonatomic) NSEnumerator *levelEnumerator;
+
+@property (nonatomic) BOOL isAdventureMode;
+
 @end
 
 @implementation GameScene
@@ -70,13 +75,19 @@
         self.moveAction = [SKAction sequence:@[[SKAction moveToY:-self.barrierTexture.size.height / 2.0 duration:2],[SKAction removeFromParent]]];
         
         self.isRunning = YES;
-        self.spawnInterval = .8f;
+        self.spawnInterval = 1.1f;
         self.spawnInterval_bonus = 1.8f;
         self.isinverted = NO;
         
         self.score = 0;
         
-        self.levelManager = [[LevelManager alloc] init];
+        self.isAdventureMode = NO;
+        
+        if (self.isAdventureMode) {
+            self.levelManager = [[LevelManager alloc] init];
+            self.currentLevel = [self.levelManager loadLevelWithIndex:1];
+            self.levelEnumerator = self.currentLevel.objectEnumerator;
+        }
     }
     return self;
 }
@@ -84,9 +95,6 @@
 -(void)initEnvironment
 {
     [self removeAllChildren];
-    
-    NSArray *level = [_levelManager loadLevelWithIndex:1];
-    NSLog(@"Level: %@", level);
     
     UISwipeGestureRecognizer* swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveLeft:)];
     swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -196,15 +204,79 @@
         _lastSpawnInterval += timeSinceLast;
         if (_lastSpawnInterval > _spawnInterval) {
             _lastSpawnInterval = 0;
-            [self addRandomBarrier];
+            if (!self.isAdventureMode) {
+                [self addRandomBarrier];
+            } else {
+                [self addNextLevelRow];
+            }
         }
         
         _lastSpawnInterval_bonus += timeSinceLast;
         if (_lastSpawnInterval_bonus > _spawnInterval_bonus) {
             _lastSpawnInterval_bonus = 0;
             _spawnInterval_bonus = 1.2f;
-            //[self addRandomBonus];
+            if (!self.isAdventureMode) {
+                [self addRandomBonus];
+            }
         }
+    }
+}
+
+-(void)addNextLevelRow
+{
+    NSArray *nextRow = [_levelEnumerator nextObject];
+    if (!nextRow) {
+        _levelEnumerator = _currentLevel.objectEnumerator;
+        nextRow = _levelEnumerator.nextObject;
+    }
+    
+    NSMutableArray *obstacles_plane1 = [NSMutableArray array], *obstacles_plane2 = [NSMutableArray array];
+    for (int i=0; i<3; i++) {
+        NSString *obstacleType = [nextRow objectAtIndex:i];
+        GameObject *obstacle;
+        int lane = i;
+        if ([obstacleType isEqualToString:@"b"]) {
+            obstacle = [[Barrier alloc] initWithTexture:self.barrierTexture];
+        } else if ([obstacleType isEqualToString:@"h"]) {
+            obstacle = [[Hole alloc] initWithTexture:self.holeTexture];
+        } else {
+            obstacle = nil;
+        }
+        
+        if (obstacle) {
+            obstacle.lane = lane;
+            obstacle.position = CGPointMake((lane * 2.0 / 6.0 + 1.0 / 6.0) * self.plane1.size.width, self.plane1.size.height + obstacle.size.height / 2.0);
+            [obstacle runAction:_moveAction];
+            [obstacles_plane1 addObject:obstacle];
+        }
+    }
+    
+    for (int i=3; i<6; i++) {
+        NSString *obstacleType = [nextRow objectAtIndex:i];
+        GameObject *obstacle;
+        int lane = i - 3;
+        if ([obstacleType isEqualToString:@"b"]) {
+            obstacle = [[Barrier alloc] initWithTexture:self.barrierTexture];
+        } else if ([obstacleType isEqualToString:@"h"]) {
+            obstacle = [[Hole alloc] initWithTexture:self.holeTexture];
+        } else {
+            obstacle = nil;
+        }
+        
+        if (obstacle) {
+            obstacle.lane = lane;
+            obstacle.position = CGPointMake((lane * 2.0 / 6.0 + 1.0 / 6.0) * self.plane2.size.width, self.plane2.size.height + obstacle.size.height / 2.0);
+            [obstacle runAction:_moveAction];
+            [obstacles_plane2 addObject:obstacle];
+        }
+    }
+    
+    for (GameObject *obstacle in obstacles_plane1) {
+        [self.plane1 addChild:obstacle];
+    }
+    
+    for (GameObject *obstacle in obstacles_plane2) {
+        [self.plane2 addChild:obstacle];
     }
 }
 
