@@ -52,8 +52,8 @@
 @property (nonatomic) SKAction *moveAction;
 @property (nonatomic) LevelManager *levelManager;
 
-@property (nonatomic) NSArray *currentLevel;
-@property (nonatomic) NSEnumerator *levelEnumerator;
+@property (nonatomic) Level *currentLevel;
+@property (nonatomic) NSEnumerator *rowEnumerator;
 
 @property (nonatomic) BOOL isAdventureMode;
 
@@ -81,12 +81,15 @@
         
         self.score = 0;
         
-        self.isAdventureMode = NO;
+        self.isAdventureMode = YES;
         
         if (self.isAdventureMode) {
             self.levelManager = [[LevelManager alloc] init];
             self.currentLevel = [self.levelManager loadLevelWithIndex:1];
-            self.levelEnumerator = self.currentLevel.objectEnumerator;
+            self.rowEnumerator = self.currentLevel.rows.objectEnumerator;
+            self.spawnInterval = self.currentLevel.timing;
+            
+            NSLog(@"Rows: %@, Timing: %f", _currentLevel.rows, _currentLevel.timing);
         }
     }
     return self;
@@ -224,10 +227,10 @@
 
 -(void)addNextLevelRow
 {
-    NSArray *nextRow = [_levelEnumerator nextObject];
+    NSArray *nextRow = [_rowEnumerator nextObject];
     if (!nextRow) {
-        _levelEnumerator = _currentLevel.objectEnumerator;
-        nextRow = _levelEnumerator.nextObject;
+        _rowEnumerator = _currentLevel.rows.objectEnumerator;
+        nextRow = _rowEnumerator.nextObject;
     }
     
     NSMutableArray *obstacles_plane1 = [NSMutableArray array], *obstacles_plane2 = [NSMutableArray array];

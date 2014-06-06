@@ -47,6 +47,7 @@
 		B0CEDC7C1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CEDC7A1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld */; };
 		B0CEDC7F1907B504006537C2 /* DBAccessLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CEDC7E1907B504006537C2 /* DBAccessLayer.m */; };
 		B0CEDC831907B681006537C2 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CEDC821907B681006537C2 /* GameObject.m */; };
+		B0DA5EDB1942296D00D663A8 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DA5EDA1942296D00D663A8 /* Level.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,8 @@
 		B0CEDC7E1907B504006537C2 /* DBAccessLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccessLayer.m; sourceTree = "<group>"; };
 		B0CEDC811907B681006537C2 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		B0CEDC821907B681006537C2 /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
+		B0DA5ED91942296D00D663A8 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		B0DA5EDA1942296D00D663A8 /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 			children = (
 				B010F70D193F86E8009E4A34 /* LevelManager.h */,
 				B010F70E193F86E8009E4A34 /* LevelManager.m */,
+				B0DA5ED91942296D00D663A8 /* Level.h */,
+				B0DA5EDA1942296D00D663A8 /* Level.m */,
 			);
 			name = LevelManagement;
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 				B00DA138192BC6B7002D4546 /* GameOverScene.m in Sources */,
 				B0735E211906DCC60035D1D7 /* MainViewController.m in Sources */,
 				B01E66721926508D00C62543 /* Ground.m in Sources */,
+				B0DA5EDB1942296D00D663A8 /* Level.m in Sources */,
 				B0735E1B1906DCC60035D1D7 /* AppDelegate.m in Sources */,
 				B01E666A192643E700C62543 /* ContactManager.m in Sources */,
 				B01E66631926342D00C62543 /* Barrier.m in Sources */,

@@ -25,6 +25,9 @@ static uint32_t kObjectCategoryInverter = 0x1 << 6;
 
 static float kParallaxBGSpeed_gameScene = 2.2;
 
+static NSString *kRowsKey = @"rows";
+static NSString *kTimingKey = @"timing";
+
 enum direction
 {
     kDirectionLeft = 0,

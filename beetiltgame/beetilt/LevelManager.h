@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Level.h"
 
 @interface LevelManager : NSObject
 
--(NSArray *)loadLevelWithIndex:(int)index;
+-(Level *)loadLevelWithIndex:(int)index;
 
 @end

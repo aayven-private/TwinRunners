@@ -7,13 +7,17 @@
 //
 
 #import "LevelManager.h"
+#import "Constants.h"
 
 @implementation LevelManager
 
--(NSArray *)loadLevelWithIndex:(int)index
+-(Level *)loadLevelWithIndex:(int)index
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"level%d", index] ofType:@"plist"];
-    NSArray *level = [NSArray arrayWithContentsOfFile:path];
+    NSDictionary *levelDict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSArray *rows = [levelDict objectForKey:kRowsKey];
+    NSNumber *timing = [levelDict objectForKey:kTimingKey];
+    Level *level = [[Level alloc] initWithRows:rows andTiming:timing.floatValue];
     return level;
 }
 
