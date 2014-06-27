@@ -111,11 +111,11 @@
     [self.view addGestureRecognizer:swipeRightGestureRecognizer];
     [self.view addGestureRecognizer:tapRecognizer];
     
-    /*NSArray *imageNames = @[@"background"];
+    NSArray *imageNames = @[@"bg"];
     ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionDown fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
     parallax.showBgStatus = NO;
     self.parallaxBG = parallax;
-    [self addChild:parallax];*/
+    [self addChild:parallax];
     
     self.contactManager = [[ContactManager alloc] initWithDelegate:self];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
@@ -199,6 +199,7 @@
     }
     _lastUpdateTimeInterval = currentTime;
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
+    [self.parallaxBG update:currentTime];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
@@ -242,6 +243,12 @@
             obstacle = [[Barrier alloc] initWithTexture:self.barrierTexture];
         } else if ([obstacleType isEqualToString:@"h"]) {
             obstacle = [[Hole alloc] initWithTexture:self.holeTexture];
+        } else if ([obstacleType isEqualToString:@"sl"]) {
+            obstacle = [[Shifter alloc] initWithTexture:self.shifterTexture];
+            ((Shifter *)obstacle).shiftDirection = 0;
+        } else if ([obstacleType isEqualToString:@"sr"]) {
+            obstacle = [[Shifter alloc] initWithTexture:self.shifterTexture];
+            ((Shifter *)obstacle).shiftDirection = 1;
         } else {
             obstacle = nil;
         }
@@ -262,6 +269,12 @@
             obstacle = [[Barrier alloc] initWithTexture:self.barrierTexture];
         } else if ([obstacleType isEqualToString:@"h"]) {
             obstacle = [[Hole alloc] initWithTexture:self.holeTexture];
+        } else if ([obstacleType isEqualToString:@"sl"]) {
+            obstacle = [[Shifter alloc] initWithTexture:self.shifterTexture];
+            ((Shifter *)obstacle).shiftDirection = 0;
+        } else if ([obstacleType isEqualToString:@"sr"]) {
+            obstacle = [[Shifter alloc] initWithTexture:self.shifterTexture];
+            ((Shifter *)obstacle).shiftDirection = 1;
         } else {
             obstacle = nil;
         }
