@@ -27,6 +27,9 @@ static float kParallaxBGSpeed_gameScene = 2.2;
 
 static NSString *kRowsKey = @"rows";
 static NSString *kTimingKey = @"timing";
+static NSString *kCurrentLevelIndexKey = @"current_level";
+
+static int kMaxLevelIndex = 11;
 
 enum direction
 {

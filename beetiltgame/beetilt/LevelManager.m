@@ -21,4 +21,23 @@
     return level;
 }
 
+-(int)getCurrentLevelIndex
+{
+    int levelIndex = 1;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *currentLevelIndex = [defaults objectForKey:kCurrentLevelIndexKey];
+    if (currentLevelIndex) {
+        levelIndex = currentLevelIndex.intValue;
+    } else {
+        [defaults setObject:[NSNumber numberWithInt:levelIndex] forKey:kCurrentLevelIndexKey];
+        [defaults synchronize];
+    }
+    return levelIndex;
+}
+
+-(UIImage *)getLevelPreviewImageForLevelIndex:(int)index
+{
+    return [UIImage imageNamed:[NSString stringWithFormat:@"preview%d", index]];
+}
+
 @end

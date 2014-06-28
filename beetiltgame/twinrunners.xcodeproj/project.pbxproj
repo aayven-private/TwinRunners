@@ -47,6 +47,9 @@
 		B0735E311906DCC60035D1D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0735E0C1906DCC60035D1D7 /* UIKit.framework */; };
 		B0735E391906DCC60035D1D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0735E371906DCC60035D1D7 /* InfoPlist.strings */; };
 		B0735E3B1906DCC60035D1D7 /* beetiltTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0735E3A1906DCC60035D1D7 /* beetiltTests.m */; };
+		B093D6D6195EF539001DECA6 /* LevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B093D6D5195EF539001DECA6 /* LevelViewController.m */; };
+		B093D6D9195EF5AF001DECA6 /* LevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B093D6D8195EF5AF001DECA6 /* LevelScene.m */; };
+		B093D6DC195EF669001DECA6 /* LevelPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = B093D6DB195EF669001DECA6 /* LevelPreview.m */; };
 		B0CEDC7C1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CEDC7A1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodeld */; };
 		B0CEDC7F1907B504006537C2 /* DBAccessLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CEDC7E1907B504006537C2 /* DBAccessLayer.m */; };
 		B0CEDC831907B681006537C2 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CEDC821907B681006537C2 /* GameObject.m */; };
@@ -127,6 +130,12 @@
 		B0735E361906DCC60035D1D7 /* twinrunnersTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "twinrunnersTests-Info.plist"; sourceTree = "<group>"; };
 		B0735E381906DCC60035D1D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B0735E3A1906DCC60035D1D7 /* beetiltTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = beetiltTests.m; sourceTree = "<group>"; };
+		B093D6D4195EF539001DECA6 /* LevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelViewController.h; sourceTree = "<group>"; };
+		B093D6D5195EF539001DECA6 /* LevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelViewController.m; sourceTree = "<group>"; };
+		B093D6D7195EF5AF001DECA6 /* LevelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelScene.h; sourceTree = "<group>"; };
+		B093D6D8195EF5AF001DECA6 /* LevelScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelScene.m; sourceTree = "<group>"; };
+		B093D6DA195EF669001DECA6 /* LevelPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPreview.h; sourceTree = "<group>"; };
+		B093D6DB195EF669001DECA6 /* LevelPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPreview.m; sourceTree = "<group>"; };
 		B0CEDC7B1907B4BB006537C2 /* TwinRunnersDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TwinRunnersDataModel.xcdatamodel; sourceTree = "<group>"; };
 		B0CEDC7D1907B504006537C2 /* DBAccessLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccessLayer.h; sourceTree = "<group>"; };
 		B0CEDC7E1907B504006537C2 /* DBAccessLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccessLayer.m; sourceTree = "<group>"; };
@@ -232,6 +241,8 @@
 				B0735E201906DCC60035D1D7 /* MainViewController.m */,
 				B0354A0E1906E0A600E5C730 /* GameViewController.h */,
 				B0354A0F1906E0A600E5C730 /* GameViewController.m */,
+				B093D6D4195EF539001DECA6 /* LevelViewController.h */,
+				B093D6D5195EF539001DECA6 /* LevelViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -247,6 +258,8 @@
 				B00DA137192BC6B7002D4546 /* GameOverScene.m */,
 				B01E66C71934C21200C62543 /* HudScene.h */,
 				B01E66C81934C21200C62543 /* HudScene.m */,
+				B093D6D7195EF5AF001DECA6 /* LevelScene.h */,
+				B093D6D8195EF5AF001DECA6 /* LevelScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -362,6 +375,8 @@
 				B01E66BE193487E700C62543 /* Shifter.m */,
 				B01E66C41934934900C62543 /* Inverter.h */,
 				B01E66C51934934900C62543 /* Inverter.m */,
+				B093D6DA195EF669001DECA6 /* LevelPreview.h */,
+				B093D6DB195EF669001DECA6 /* LevelPreview.m */,
 			);
 			name = GameObjects;
 			sourceTree = "<group>";
@@ -490,12 +505,15 @@
 				B01E66721926508D00C62543 /* Ground.m in Sources */,
 				B0DA5EDB1942296D00D663A8 /* Level.m in Sources */,
 				B0735E1B1906DCC60035D1D7 /* AppDelegate.m in Sources */,
+				B093D6DC195EF669001DECA6 /* LevelPreview.m in Sources */,
 				B01E666A192643E700C62543 /* ContactManager.m in Sources */,
 				B01E66631926342D00C62543 /* Barrier.m in Sources */,
+				B093D6D6195EF539001DECA6 /* LevelViewController.m in Sources */,
 				B0354A131906E13000E5C730 /* GameScene.m in Sources */,
 				B0735E171906DCC60035D1D7 /* main.m in Sources */,
 				B01E666F1926467A00C62543 /* ParallaxBG.m in Sources */,
 				B0CEDC7F1907B504006537C2 /* DBAccessLayer.m in Sources */,
+				B093D6D9195EF5AF001DECA6 /* LevelScene.m in Sources */,
 				B01E66601926342000C62543 /* Runner.m in Sources */,
 				B01E66BF193487E700C62543 /* Shifter.m in Sources */,
 			);

@@ -13,4 +13,7 @@
 
 -(Level *)loadLevelWithIndex:(int)index;
 
+-(int)getCurrentLevelIndex;
+-(UIImage *)getLevelPreviewImageForLevelIndex:(int)index;
+
 @end
