@@ -564,7 +564,7 @@
             [node removeAllActions];
         }
         SKAction *showGOSAction = [SKAction sequence:@[[SKAction waitForDuration:1], [SKAction runBlock:^{
-            [_delegate gameOverWithScore:0];
+            [_gameDelegate gameOverWithScore:0];
         }]]];
         
         [self runAction:showGOSAction];
@@ -591,7 +591,7 @@
         [runner runAction:[SKAction group:@[shrinkAction, moveAction, rotation]]];
         
         SKAction *showGOSAction = [SKAction sequence:@[[SKAction waitForDuration:1], [SKAction runBlock:^{
-            [_delegate gameOverWithScore:0];
+            [_gameDelegate gameOverWithScore:0];
         }]]];
         
         [self runAction:showGOSAction];

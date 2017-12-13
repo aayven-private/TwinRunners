@@ -12,7 +12,7 @@
 
 @interface GameScene : SKScene<ContactManagerDelegate>
 
-@property (nonatomic, weak) id<GameSceneHandlerDelegate> delegate;
+@property (nonatomic, weak) id<GameSceneHandlerDelegate> gameDelegate;
 
 -(void)initEnvironment;
 

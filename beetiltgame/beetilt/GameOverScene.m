@@ -65,9 +65,9 @@
     SKNode *node = [self nodeAtPoint:loc];
     
     if ([node.name isEqualToString:@"exit"]) {
-        [_delegate quit];
+        [_gameDelegate quit];
     } else if ([node.name isEqualToString:@"retry"]) {
-        [_delegate retry];
+        [_gameDelegate retry];
     }
 }
 

@@ -11,7 +11,7 @@
 
 @interface GameOverScene : SKScene
 
-@property (nonatomic, weak) id<GameSceneHandlerDelegate> delegate;
+@property (nonatomic, weak) id<GameSceneHandlerDelegate> gameDelegate;
 
 -(id)initWithSize:(CGSize)size andScore:(int)score;
 

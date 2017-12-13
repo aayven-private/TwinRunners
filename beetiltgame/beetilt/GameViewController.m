@@ -71,7 +71,7 @@
         // Create and configure the scene.
         _gameScene = [GameScene sceneWithSize:_gameView.bounds.size];
         _gameScene.scaleMode = SKSceneScaleModeAspectFill;
-        _gameScene.delegate = self;
+        _gameScene.gameDelegate = self;
         
         // Present the scene.
         [_gameView presentScene:_gameScene];
@@ -94,7 +94,7 @@
 {
     //SKView * skView = (SKView *)self.view;
     GameOverScene *gos = [[GameOverScene alloc] initWithSize:_gameView.frame.size andScore:0];
-    gos.delegate = self;
+    gos.gameDelegate = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [_gameView presentScene:gos transition:[SKTransition flipHorizontalWithDuration:.5]];
     });
@@ -114,7 +114,7 @@
     // Create and configure the scene.
     _gameScene = [GameScene sceneWithSize:_gameView.bounds.size];
     _gameScene.scaleMode = SKSceneScaleModeAspectFill;
-    _gameScene.delegate = self;
+    _gameScene.gameDelegate = self;
     
     // Present the scene.
     [_gameView presentScene:_gameScene transition:[SKTransition flipHorizontalWithDuration:.5]];
